@@ -38,6 +38,8 @@ android {
 }
 
 dependencies {
+    def retrofit2_version = "2.6.2"
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
     implementation "androidx.appcompat:appcompat:$appcompatVersion"
@@ -55,6 +57,10 @@ dependencies {
     implementation 'de.codecrafters.tableview:tableview:2.8.0'
 
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
+
+    //Retrofit2
+    implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit2_version"
 
 
 }
