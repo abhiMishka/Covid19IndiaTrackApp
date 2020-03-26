@@ -10,12 +10,14 @@ import java.io.IOException
 
 class Covid19IndiaTrackApplication : Application() {
 
+
     override fun onCreate() {
         super.onCreate()
         instance = this
     }
 
     companion object {
+        const val BASE_URL = "https://api.covid19india.org/"
         var okhttpClient: OkHttpClient? = null
         private var retrofit: Retrofit? = null
         private lateinit var instance: Covid19IndiaTrackApplication
@@ -28,7 +30,7 @@ class Covid19IndiaTrackApplication : Application() {
             val okHttpClient = getOkHttpClient() ?: return null
             if (retrofit == null) {
                 retrofit = Retrofit.Builder()
-                        .baseUrl("www.google.com") //BASE_URL
+                        .baseUrl(BASE_URL) //BASE_URL
                         .client(okHttpClient)
                         .addConverterFactory(GsonConverterFactory.create())
                         .build()

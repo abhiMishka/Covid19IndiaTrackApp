@@ -63,5 +63,18 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit2_version"
 
+    /**
+     * Koin dependency injection dependencies
+     */
+    implementation "org.koin:koin-android:1.0.2"
+    implementation "org.koin:koin-androidx-viewmodel:1.0.0"
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "org.koin:koin-androidx-viewmodel:1.0.0"
+
+    //Kotlin Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinCoroutineVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutineVersion"
+
+
 
 }

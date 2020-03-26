@@ -2,6 +2,7 @@ package com.example.bottomnavigation.ui
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,9 +10,19 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.example.bottomnavigation.R
 import com.example.bottomnavigation.databinding.FragmentHomeBinding
+import com.example.bottomnavigation.helper.UtilFunctions
+import com.example.bottomnavigation.network.Repository
+import com.example.bottomnavigation.network.dataclasses.AllDataResponse
+import com.example.bottomnavigation.network.dataclasses.RawDataAResponse
+import com.example.bottomnavigation.network.dataclasses.StateWiseResponse
+import com.example.bottomnavigation.network.dataclasses.TravelHistoryResponse
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
+import com.google.gson.Gson
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 class HomeFragment : Fragment() {
@@ -34,6 +45,76 @@ class HomeFragment : Fragment() {
         setUpPieChartData()
         setupBarChartData()
         setupLineChartData()
+
+        GlobalScope.launch(Dispatchers.Main) {
+            getStateWiseData()
+            getRawData()
+            getTravelHistoryData()
+            getAllData()
+        }
+    }
+
+    suspend fun getStateWiseData(){
+        val repo = Repository()
+        val response = repo.getStateWiseData()
+
+        if (response?.isSuccessful==true) {
+            val gson = Gson()
+            val stateWiseResponse : StateWiseResponse =
+                    gson.fromJson(response.body(), StateWiseResponse::class.java)
+            Log.i("testApi",stateWiseResponse.toString())
+        }else{
+            UtilFunctions.toast(response?.errorBody()?.string() ?: "Error")
+        }
+        print(response.toString())
+    }
+
+    suspend fun getTravelHistoryData(){
+        val repo = Repository()
+        val response = repo.getTravelHistoryData()
+
+        if (response?.isSuccessful==true) {
+            val gson = Gson()
+            val travelHistoryResponse : TravelHistoryResponse =
+                    gson.fromJson(response.body(), TravelHistoryResponse::class.java)
+            Log.i("testApi",travelHistoryResponse.toString())
+
+        }else{
+            UtilFunctions.toast(response?.errorBody()?.string() ?: "Error")
+        }
+        print(response.toString())
+    }
+
+    suspend fun getAllData(){
+        val repo = Repository()
+        val response = repo.getAllData()
+
+        if (response?.isSuccessful==true) {
+            val gson = Gson()
+            val allDataAResponse : AllDataResponse =
+                    gson.fromJson(response.body(), AllDataResponse::class.java)
+            Log.i("testApi",allDataAResponse.toString())
+
+        }else{
+            UtilFunctions.toast(response?.errorBody()?.string() ?: "Error")
+        }
+        print(response.toString())
+    }
+
+    suspend fun getRawData(){
+        val repo = Repository()
+        val response = repo.getRawData()
+
+        if (response?.isSuccessful==true) {
+            val gson = Gson()
+            val rawDataAResponse : RawDataAResponse =
+                    gson.fromJson(response.body(), RawDataAResponse::class.java)
+            Log.i("testApi",rawDataAResponse.toString())
+
+        }else{
+            UtilFunctions.toast(response?.errorBody()?.string() ?: "Error")
+        }
+        print(response.toString())
     }
 
     private fun setUpPieChartData() {
