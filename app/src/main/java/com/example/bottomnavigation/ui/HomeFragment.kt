@@ -49,7 +49,6 @@ class HomeFragment : Fragment() {
         GlobalScope.launch(Dispatchers.Main) {
             getStateWiseData()
             getRawData()
-            getTravelHistoryData()
             getAllData()
         }
     }
@@ -69,21 +68,7 @@ class HomeFragment : Fragment() {
         print(response.toString())
     }
 
-    suspend fun getTravelHistoryData(){
-        val repo = Repository()
-        val response = repo.getTravelHistoryData()
 
-        if (response?.isSuccessful==true) {
-            val gson = Gson()
-            val travelHistoryResponse : TravelHistoryResponse =
-                    gson.fromJson(response.body(), TravelHistoryResponse::class.java)
-            Log.i("testApi",travelHistoryResponse.toString())
-
-        }else{
-            UtilFunctions.toast(response?.errorBody()?.string() ?: "Error")
-        }
-        print(response.toString())
-    }
 
     suspend fun getAllData(){
         val repo = Repository()

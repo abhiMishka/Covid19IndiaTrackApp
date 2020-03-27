@@ -75,6 +75,11 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinCoroutineVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutineVersion"
 
+    //~~~~~~~~~~~~~~~~~~~~~~~~~map dependencies
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation 'com.google.maps.android:android-maps-utils:0.5+'
+    implementation 'com.google.android.libraries.places:places-compat:2.0.0'
 
 
 }

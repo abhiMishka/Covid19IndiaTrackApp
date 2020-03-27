@@ -7,9 +7,14 @@ import okhttp3.ResponseBody
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
+import java.security.KeyManagementException
+import java.security.NoSuchAlgorithmException
+import java.security.SecureRandom
+import javax.net.ssl.*
+import javax.security.cert.CertificateException
+import javax.security.cert.X509Certificate
 
 class Covid19IndiaTrackApplication : Application() {
-
 
     override fun onCreate() {
         super.onCreate()
@@ -40,8 +45,13 @@ class Covid19IndiaTrackApplication : Application() {
 
         fun getOkHttpClient(): OkHttpClient? {
             if (okhttpClient == null) {
-                okhttpClient = OkHttpClient.Builder()
-                        .addInterceptor(ResponseInterceptor()).build()
+                okhttpClient = OkHttpClient.Builder().sslSocketFactory(getSSLSocketFactory())
+                        .hostnameVerifier(object : HostnameVerifier {
+                            override fun verify(p0: String?, p1: SSLSession?): Boolean {
+                                return true
+                            }
+                        })
+                .addInterceptor(ResponseInterceptor()).build()
             }
             return okhttpClient
 
@@ -59,5 +69,45 @@ class Covid19IndiaTrackApplication : Application() {
 
             }
         }
+
+        fun getSSLSocketFactory(): SSLSocketFactory? {
+            return try { // Create a trust manager that does not validate certificate chains
+                val trustAllCerts: Array<TrustManager> = arrayOf<TrustManager>(
+                        object : X509TrustManager {
+                            @Throws(CertificateException::class)
+                            fun checkClientTrusted(chain: Array<X509Certificate?>?, authType: String?) {
+                            }
+
+                            @Throws(CertificateException::class)
+                            fun checkServerTrusted(chain: Array<X509Certificate?>?, authType: String?) {
+                            }
+
+                            val acceptedIssuers: Array<X509Certificate?>?
+                                get() = arrayOf()
+
+                            override fun checkClientTrusted(p0: Array<out java.security.cert.X509Certificate>?, p1: String?) {
+                            }
+
+                            override fun checkServerTrusted(p0: Array<out java.security.cert.X509Certificate>?, p1: String?) {
+                            }
+
+                            override fun getAcceptedIssuers(): Array<java.security.cert.X509Certificate> {
+                                return arrayOf()
+                            }
+                        }
+                )
+                // Install the all-trusting trust manager
+                val sslContext: SSLContext = SSLContext.getInstance("SSL")
+                sslContext.init(null, trustAllCerts, SecureRandom())
+                // Create an ssl socket factory with our all-trusting manager
+                sslContext.getSocketFactory()
+            } catch (e: KeyManagementException) {
+                null
+            } catch (e: NoSuchAlgorithmException) {
+                null
+            }
+        }
     }
+
+
 }
