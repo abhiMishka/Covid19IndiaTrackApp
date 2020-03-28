@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape xmlns:android="http://schemas.android.com/apk/res/android"
+            android:shape="ring"
+            android:useLevel="false"
+            android:thicknessRatio="5"
+            android:innerRadius="2dp">
+            <solid android:color="@color/stopped_bg" />
+
+            <size
+                android:width="10dp"
+                android:height="10dp" />
+
+        </shape>
+    </item>
+</layer-list>

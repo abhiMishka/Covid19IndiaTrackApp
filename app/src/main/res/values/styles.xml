@@ -16,4 +16,32 @@
         <item name="colorPrimaryDark">@color/white</item>
     </style>
 
+    <style name="CardBoldText">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/listprimary_black</item>
+    </style>
+
+    <style name="LableText">
+        <item name="android:textSize">8sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/listprimary_black</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+    </style>
+
+    <style name="Heading">
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:lineSpacingExtra">2sp</item>
+        <item name="android:textColor">@color/listprimary_black</item>
+    </style>
+
+    <style name="ListOtherRegularInfo">
+        <item name="android:textSize">10sp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/listprimary_black</item>
+    </style>
+
 </resources>
