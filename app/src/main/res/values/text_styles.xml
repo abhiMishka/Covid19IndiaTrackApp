@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MainHeading">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/dark</item>
+        <item name="android:letterSpacing">-0.02</item>
+        <item name="android:lineSpacingExtra">9sp</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="PageHeading">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/dark</item>
+        <item name="android:letterSpacing">-0.02</item>
+        <item name="android:lineSpacingExtra">7sp</item>
+    </style>
+
+    <style name="BodyLarge">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/dark</item>
+        <item name="android:lineSpacingExtra">6sp</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="BodyLargeGrey">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/lightgrey</item>
+        <item name="android:lineSpacingExtra">6sp</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+
+    <style name="BodyBoldDark">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/dark</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:lineSpacingExtra">5sp</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="BodyBoldLight">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/lightgrey</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:lineSpacingExtra">5sp</item>
+        <item name="android:gravity">end</item>
+    </style>
+
+    <style name="BodyLight">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/lightgrey</item>
+        <item name="android:lineSpacingExtra">5sp</item>
+        <item name="android:gravity">end</item>
+    </style>
+</resources>

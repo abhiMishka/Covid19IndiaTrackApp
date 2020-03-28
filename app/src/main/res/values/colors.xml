@@ -28,7 +28,6 @@
 
     <!-- App Default colors -->
     <color name="white_opacity">#03ffffff</color>
-    <color name="red">#FFFF1119</color>
 
     <color name="black_alpha_90">#E5000000</color>
     <color name="black_alpha_80">#CC000000</color>
@@ -194,5 +193,9 @@
     <color name="disable_color">#ffffff</color>
 
     <color name="lable_blue">#e0e9f0</color>
+
+    <color name="dark">#de000000</color>
+    <color name="lightgrey">#8a000000</color>
+    <color name="red">#d06666</color>
 
 </resources>
