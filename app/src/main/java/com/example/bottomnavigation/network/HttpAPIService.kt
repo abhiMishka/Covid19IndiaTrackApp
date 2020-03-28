@@ -20,5 +20,4 @@ interface HttpAPIService {
     @GET(HttpConstants.ALL_DATA)
     suspend fun getAllData(): Response<JsonElement>
 
-
 }
