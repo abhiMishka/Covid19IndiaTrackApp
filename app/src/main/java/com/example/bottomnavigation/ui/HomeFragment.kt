@@ -6,7 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.bottomnavigation.R
 import com.example.bottomnavigation.databinding.FragmentHomeBinding
@@ -17,12 +17,20 @@ import com.example.bottomnavigation.network.dataclasses.RawDataAResponse
 import com.example.bottomnavigation.network.dataclasses.StateWiseResponse
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import com.anychart.graphics.vector.SolidFill
+import com.anychart.graphics.vector.Fill
+import com.anychart.chart.common.dataentry.SingleValueDataSet
+import com.anychart.AnyChart
+import com.anychart.charts.CircularGauge
+import com.anychart.enums.Anchor
+import com.anychart.graphics.vector.text.HAlign
+import com.anychart.graphics.vector.text.VAlign
+
 
 class HomeFragment : Fragment() {
 
@@ -47,8 +55,6 @@ class HomeFragment : Fragment() {
             getStateWiseData()
             getRawData()
             getAllData()
-            setUpPieChartData()
-            setupBarChartData()
         }
     }
 
@@ -70,13 +76,14 @@ class HomeFragment : Fragment() {
 
     suspend fun getAllData() {
         val repo = Repository()
+        binding.circularGaugeProgress.visibility = View.VISIBLE
         val response = repo.getAllData()
-
         if (response?.isSuccessful == true) {
             val gson = Gson()
             val allDataAResponse: AllDataResponse =
                     gson.fromJson(response.body(), AllDataResponse::class.java)
             setupLineChartData(allDataAResponse)
+            setupGaugeChartData(allDataAResponse)
             Log.i("testApi2", allDataAResponse.toString())
 
         } else {
@@ -99,34 +106,6 @@ class HomeFragment : Fragment() {
             UtilFunctions.toast(response?.errorBody()?.string() ?: "Error")
         }
         print(response.toString())
-    }
-
-    fun setUpPieChartData() {
-        Log.i("testApi2", "inside setUpPieChartData")
-
-        val yVals = ArrayList<PieEntry>()
-        yVals.add(PieEntry(30f))
-        yVals.add(PieEntry(2f))
-        yVals.add(PieEntry(4f))
-        yVals.add(PieEntry(22f))
-        yVals.add(PieEntry(12.5f))
-
-        val dataSet = PieDataSet(yVals, "")
-        dataSet.valueTextSize = 0f
-        val colors = java.util.ArrayList<Int>()
-        colors.add(Color.GRAY)
-        colors.add(Color.BLUE)
-        colors.add(Color.RED)
-        colors.add(Color.GREEN)
-        colors.add(Color.MAGENTA)
-
-        dataSet.setColors(colors)
-        val data = PieData(dataSet)
-        binding.pieChart.data = data
-        binding.pieChart.centerTextRadiusPercent = 0f
-        binding.pieChart.isDrawHoleEnabled = false
-        binding.pieChart.legend.isEnabled = false
-        binding.pieChart.description.isEnabled = false
     }
 
     fun setupLineChartData(allDataAResponse: AllDataResponse) {
@@ -192,42 +171,113 @@ class HomeFragment : Fragment() {
         binding.lineChart.notifyDataSetChanged()
     }
 
-    private fun setupBarChartData() {
-        // create BarEntry for Bar Group
-        val bargroup = ArrayList<BarEntry>()
-        bargroup.add(BarEntry(0f, 30f, "0"))
-        bargroup.add(BarEntry(1f, 2f, "1"))
-        bargroup.add(BarEntry(2f, 4f, "2"))
-        bargroup.add(BarEntry(3f, 6f, "3"))
-        bargroup.add(BarEntry(4f, 8f, "4"))
-        bargroup.add(BarEntry(5f, 10f, "5"))
-        bargroup.add(BarEntry(6f, 22f, "6"))
-        bargroup.add(BarEntry(7f, 12.5f, "7"))
-        bargroup.add(BarEntry(8f, 22f, "8"))
-        bargroup.add(BarEntry(9f, 32f, "9"))
-        bargroup.add(BarEntry(10f, 54f, "10"))
-        bargroup.add(BarEntry(11f, 28f, "11"))
+    private fun setupGaugeChartData(allDataAResponse: AllDataResponse) {
+        if (!allDataAResponse.statewise.isNullOrEmpty()) {
+            binding.circularGaugeProgress.visibility = View.GONE
+            binding.circularGaugeChart.visibility = View.VISIBLE
+            val stateList = allDataAResponse.statewise[0]
+            val circularGauge = AnyChart.circular()
+            circularGauge.tooltip(false)
+            circularGauge.credits(false)
+            val maxRangeOfChart = stateList.confirmed.toInt().times(1.2)
 
-        // creating dataset for Bar Group
-        val barDataSet = BarDataSet(bargroup, "")
+            circularGauge.data(SingleValueDataSet(arrayOf(stateList.confirmed
+                    , stateList.active
+                    , stateList.deaths
+                    , stateList.recovered
+                    , maxRangeOfChart
+                    , maxRangeOfChart)))
 
-        barDataSet.color = ContextCompat.getColor(context!!, R.color.amber)
+            circularGauge.fill("#fff")
+                    .stroke(null)
+                    .padding(0.0, 0.0, 0.0, 0.0)
+                    .margin(100.0, 100.0, 100.0, 100.0)
+            circularGauge.startAngle(0.0)
+            circularGauge.sweepAngle(270.0)
 
-        val data = BarData(barDataSet)
-        binding.barChart.apply {
-            setData(data)
-            xAxis.position = XAxis.XAxisPosition.BOTTOM
-            xAxis.labelCount = 11
-            xAxis.enableGridDashedLine(5f, 5f, 0f)
-            axisRight.enableGridDashedLine(5f, 5f, 0f)
-            axisLeft.enableGridDashedLine(5f, 5f, 0f)
-            description.isEnabled = false
-            animateY(1000)
-            legend.isEnabled = false
-            setPinchZoom(true)
-            data.setDrawValues(false)
+            val xAxis = circularGauge.axis(0)
+                    .radius(100.0)
+                    .width(1.0)
+                    .fill(null as Fill?)
+            xAxis.scale()
+                    .minimum(0.0)
+                    .maximum(1000.0)
+            xAxis.ticks("{ interval: 1 }")
+                    .minorTicks("{ interval: 1 }")
+            xAxis.labels().enabled(false)
+            xAxis.ticks().enabled(false)
+            xAxis.minorTicks().enabled(false)
+
+            setCircularGauge(circularGauge
+                    , 0.0.toFloat()
+                    , "Total Cases (${stateList.confirmed})"
+                    , "${100.0}%"
+                    , 100.0.toFloat()
+                    , "#64b5f6"
+                    , 100.0.toFloat())
+
+            setCircularGauge(circularGauge
+                    , 1.0.toFloat()
+                    , "Active Cases(${stateList.active})"
+                    , "${80.0}%"
+                    , 80.0.toFloat()
+                    , "#1976d2"
+                    , 101.0.toFloat())
+
+            setCircularGauge(circularGauge, 2.0.toFloat()
+                    , "Total Deaths(${stateList.deaths})"
+                    , "${60.0}%"
+                    , 60.0.toFloat()
+                    , "#ef6c00"
+                    , 102.0.toFloat())
+
+            setCircularGauge(circularGauge, 3.0.toFloat()
+                    , "Recovered Cases(${stateList.recovered})"
+                    , "${40.0}%"
+                    , 40.0.toFloat()
+                    , "#ffd54f"
+                    , 103.0.toFloat())
+            circularGauge.margin(50.0, 50.0, 50.0, 50.0)
+            binding.circularGaugeChart.setChart(circularGauge)
+        } else {
+            binding.circularGaugeChart.visibility = View.GONE
+            Toast.makeText(context,"Not Able to Draw Graph",Toast.LENGTH_SHORT).show()
         }
+    }
 
+    private fun setCircularGauge(circularGauge: CircularGauge
+                                 , bar1LableIndex: Float
+                                 , title: String
+                                 , offsetY: String
+                                 , radius: Float
+                                 , color: String
+                                 , bar2LableIndex: Float) {
+
+        circularGauge.label(bar1LableIndex)
+                .text(title)
+                .useHtml(true)
+                .hAlign(HAlign.CENTER)
+                .vAlign(VAlign.MIDDLE)
+        circularGauge.label(bar1LableIndex)
+                .anchor(Anchor.RIGHT_CENTER)
+                .padding(0.0, 10.0, 0.0, 0.0)
+                .height("${(17.0 / 2.0)}%")
+                .offsetY(offsetY)
+                .offsetX(0.0)
+        val bar3 = circularGauge.bar(bar1LableIndex)
+        bar3.dataIndex(bar1LableIndex)
+        bar3.radius(radius)
+        bar3.width(17.0)
+        bar3.fill(SolidFill(color, 1.0))
+        bar3.stroke(null)
+        bar3.zIndex(5.0)
+        val bar103 = circularGauge.bar(bar2LableIndex)
+        bar103.dataIndex(5.0)
+        bar103.radius(radius)
+        bar103.width(17.0)
+        bar103.fill(SolidFill("#F5F4F4", 1.0))
+        bar103.stroke("1 #e5e4e4")
+        bar103.zIndex(4.0)
     }
 
 }
