@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.anychart.APIlib
 import com.example.bottomnavigation.R
 import com.example.bottomnavigation.databinding.FragmentHomeBinding
 import com.example.bottomnavigation.helper.UtilFunctions
@@ -26,10 +27,23 @@ import com.anychart.graphics.vector.SolidFill
 import com.anychart.graphics.vector.Fill
 import com.anychart.chart.common.dataentry.SingleValueDataSet
 import com.anychart.AnyChart
+import com.anychart.chart.common.dataentry.DataEntry
+import com.anychart.chart.common.dataentry.ValueDataEntry
 import com.anychart.charts.CircularGauge
+import com.anychart.data.Set
 import com.anychart.enums.Anchor
 import com.anychart.graphics.vector.text.HAlign
 import com.anychart.graphics.vector.text.VAlign
+import com.anychart.enums.MarkerType
+import com.anychart.enums.TooltipPositionMode
+import com.anychart.graphics.vector.Stroke
+import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.components.AxisBase
+import com.github.mikephil.charting.components.YAxis
+import com.github.mikephil.charting.formatter.IAxisValueFormatter
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.github.mikephil.charting.formatter.ValueFormatter
+import java.lang.Appendable
 
 
 class HomeFragment : Fragment() {
@@ -83,9 +97,8 @@ class HomeFragment : Fragment() {
             val allDataAResponse: AllDataResponse =
                     gson.fromJson(response.body(), AllDataResponse::class.java)
             setCumulativeData(allDataAResponse)
-            setupLineChartData(allDataAResponse)
+            setUpLineChartData(allDataAResponse)
             setupGaugeChartData(allDataAResponse)
-            Log.i("testApi2", allDataAResponse.toString())
 
         } else {
             UtilFunctions.toast(response?.errorBody()?.string() ?: "Error")
@@ -109,9 +122,9 @@ class HomeFragment : Fragment() {
         print(response.toString())
     }
 
-    private fun setCumulativeData(allDataAResponse: AllDataResponse){
-        if(!allDataAResponse.statewise.isNullOrEmpty()){
-            val cumulativeData =  allDataAResponse.statewise[0]
+    private fun setCumulativeData(allDataAResponse: AllDataResponse) {
+        if (!allDataAResponse.statewise.isNullOrEmpty()) {
+            val cumulativeData = allDataAResponse.statewise[0]
             binding.activeCount.text = cumulativeData.active
             binding.deathCount.text = cumulativeData.deaths
             binding.totalCasesCount.text = cumulativeData.confirmed
@@ -124,43 +137,43 @@ class HomeFragment : Fragment() {
         }
     }
 
-    fun setupLineChartData(allDataAResponse: AllDataResponse) {
+    private fun setUpLineChartData(allDataAResponse: AllDataResponse){
+
+        setupLineTotalChartData(allDataAResponse)
+        setupLineTotalRecoveredData(allDataAResponse)
+        setUpLineTotalDeathData(allDataAResponse)
+    }
+
+    private fun setUpLineTotalDeathData(allDataAResponse: AllDataResponse){
         val yVals = ArrayList<Entry>()
-        var i = 0
-//        val xAxisValues: ArrayList<String> = ArrayList()
-
-        for (case in allDataAResponse.casesTimeSeries) {
-//                xAxisValues.add(case.date)
-
-            yVals.add(Entry(i.toFloat(), case.totalconfirmed.toFloat(), case))
-            Log.i("testApi", "case : " + case)
-            i++
+        for ((i, case) in allDataAResponse.casesTimeSeries.withIndex()) {
+            yVals.add(Entry(i.toFloat(), case.totaldeceased.toFloat(), case))
         }
+        createGraph(binding.lineChartdeath,resources.getColor(R.color.red),yVals,"DataSet 3")
+    }
 
-//        yVals.add(Entry(0f, 30f, "0"))
-//        yVals.add(Entry(1f, 2f, "1"))
-//        yVals.add(Entry(2f, 4f, "2"))
-//        yVals.add(Entry(3f, 6f, "3"))
-//        yVals.add(Entry(4f, 8f, "4"))
-//        yVals.add(Entry(5f, 10f, "5"))
-//        yVals.add(Entry(6f, 22f, "6"))
-//        yVals.add(Entry(7f, 12.5f, "7"))
-//        yVals.add(Entry(8f, 22f, "8"))
-//        yVals.add(Entry(9f, 32f, "9"))
-//        yVals.add(Entry(10f, 54f, "10"))
-//        yVals.add(Entry(11f, 28f, "11"))
+    private fun setupLineTotalRecoveredData(allDataAResponse: AllDataResponse){
+        val yVals = ArrayList<Entry>()
+        for ((i, case) in allDataAResponse.casesTimeSeries.withIndex()) {
+            yVals.add(Entry(i.toFloat(), case.totalrecovered.toFloat(), case))
+        }
+        createGraph(binding.lineChartrecovered,resources.getColor(R.color.primary),yVals,"DataSet 2")
+    }
 
-        val set1: LineDataSet
-        set1 = LineDataSet(yVals, "DataSet 1")
+    private fun setupLineTotalChartData(allDataAResponse: AllDataResponse) {
+        val yVals = ArrayList<Entry>()
+        for ((i, case) in allDataAResponse.casesTimeSeries.withIndex()) {
+//                xAxisValues.add(case.date)
+            yVals.add(Entry(i.toFloat(), case.totalconfirmed.toFloat(), case))
+        }
+        createGraph(binding.lineChart,resources.getColor(R.color.blue_pale),yVals,"DataSet 1")
+    }
 
-        // set1.fillAlpha = 110
-        // set1.setFillColor(Color.RED);
+    private fun createGraph(view: LineChart, color:Int, yVals:ArrayList<Entry>, dataSet:String){
 
-        // set the line to be drawn like this "- - - - - -"
-        // set1.enableDashedLine(5f, 5f, 0f);
-        // set1.enableDashedHighlightLine(10f, 5f, 0f);
-        set1.color = Color.BLUE
-        set1.setCircleColor(Color.BLUE)
+        val set1 = LineDataSet(yVals, dataSet)
+        set1.color = color
+        set1.setCircleColor(color)
         set1.lineWidth = 1f
         set1.circleRadius = 3f
         set1.setDrawCircleHole(false)
@@ -170,27 +183,27 @@ class HomeFragment : Fragment() {
         val dataSets = ArrayList<ILineDataSet>()
         dataSets.add(set1)
         val data = LineData(dataSets)
-
-        // set data
-        binding.lineChart.setData(data)
-        binding.lineChart.description.isEnabled = false
-        binding.lineChart.legend.isEnabled = false
-        binding.lineChart.setPinchZoom(true)
-        binding.lineChart.xAxis.enableGridDashedLine(5f, 5f, 0f)
-        binding.lineChart.axisRight.enableGridDashedLine(5f, 5f, 0f)
-        binding.lineChart.axisLeft.enableGridDashedLine(5f, 5f, 0f)
-        //lineChart.setDrawGridBackground()
-//        binding.lineChart.xAxis.labelCount = xAxisValues.size
-//        binding.lineChart.xAxis.setValueFormatter(IndexAxisValueFormatter(xAxisValues))
-
-        binding.lineChart.xAxis.position = XAxis.XAxisPosition.BOTH_SIDED
-        binding.lineChart.notifyDataSetChanged()
+//        binding.lineChart.xAxis.valueFormatter = IndexAxisValueFormatter(xVals)
+        view.data = data
+        view.invalidate()
+        view.description.isEnabled = false
+        view.legend.isEnabled = false
+        view.setScaleEnabled(false)
+        view.isClickable = false
+        view.setPinchZoom(false)
+        view.axisLeft.setDrawGridLines(false)
+        view.xAxis.setDrawGridLines(false)
+        val  yAxisRight = view.axisRight
+        yAxisRight.isEnabled = false
+        view.setViewPortOffsets(0f, 0f, 0f, 0f)
+        view.xAxis.position = XAxis.XAxisPosition.BOTTOM
+        view.notifyDataSetChanged()
     }
 
     private fun setupGaugeChartData(allDataAResponse: AllDataResponse) {
         if (!allDataAResponse.statewise.isNullOrEmpty()) {
-            binding.circularGaugeProgress.visibility = View.GONE
             binding.circularGaugeChart.visibility = View.VISIBLE
+            APIlib.getInstance().setActiveAnyChartView(binding.circularGaugeChart)
             val stateList = allDataAResponse.statewise[0]
             val circularGauge = AnyChart.circular()
             val maxRangeOfChart = stateList.confirmed.toInt().times(1.2)
@@ -255,7 +268,7 @@ class HomeFragment : Fragment() {
             binding.circularGaugeChart.setChart(circularGauge)
         } else {
             binding.circularGaugeChart.visibility = View.GONE
-            Toast.makeText(context,"Not Able to Draw Graph",Toast.LENGTH_SHORT).show()
+            UtilFunctions.toast("Not able to draw graph")
         }
     }
 
@@ -294,3 +307,5 @@ class HomeFragment : Fragment() {
     }
 
 }
+   private class CustomDataEntry(x:String,value:Number) : ValueDataEntry(x,value){}
+

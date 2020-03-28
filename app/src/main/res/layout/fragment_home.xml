@@ -6,7 +6,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingBottom="5dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -143,8 +144,8 @@
 
                 <com.anychart.AnyChartView
                     android:id="@+id/circular_gauge_chart"
-                    android:layout_width="388dp"
-                    android:layout_height="354dp" />
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
             </androidx.cardview.widget.CardView>
 
@@ -153,8 +154,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                style="@style/MainHeading"
                 android:id="@+id/circular_gauge_title"
-                android:text="CoronaVirus Cases"
+                android:text="Total Cases"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                 android:textStyle="bold"
                 android:layout_marginTop="8dp"
@@ -162,36 +164,110 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/circular_gauge_cv" />
 
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/lineChart"
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                app:layout_constraintTop_toBottomOf="@+id/circular_gauge_title"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_height="175dp"
+                android:id="@+id/line_chart_confirmed_cv"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:elevation="4dp"
+                android:clickable="false"
+                app:cardCornerRadius="4dp"
+                android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_height="350dp"
-                android:layout_marginTop="8dp" />
+                android:layout_marginBottom="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/circular_gauge_title">
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/lineChart"
+                    android:clickable="false"
+                    android:layout_width="match_parent"
+                    android:padding="25dp"
+                    android:layout_height="match_parent"/>
+
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:id="@+id/pie_chart_title"
-                android:layout_marginTop="8dp"
-                android:text="Pie Chart"
+                style="@style/MainHeading"
+                android:id="@+id/recovered_cases"
+                android:text="Recovered Cases"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                 android:textStyle="bold"
+                android:layout_marginTop="8dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lineChart" />
+                app:layout_constraintTop_toBottomOf="@id/line_chart_confirmed_cv" />
 
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/pieChart"
-                app:layout_constraintTop_toBottomOf="@+id/pie_chart_title"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
-                android:layout_marginTop="8dp" />
+                android:layout_height="175dp"
+                android:id="@+id/line_chart_recoved_cv"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:elevation="4dp"
+                android:clickable="false"
+                app:cardCornerRadius="4dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recovered_cases">
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/lineChartrecovered"
+                    android:clickable="false"
+                    android:layout_width="match_parent"
+                    android:padding="25dp"
+                    android:layout_height="match_parent"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                style="@style/MainHeading"
+                android:id="@+id/death_cases"
+                android:text="Death Cases"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/line_chart_recoved_cv" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="175dp"
+                android:id="@+id/line_chart_death_cv"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:elevation="4dp"
+                android:clickable="false"
+                app:cardCornerRadius="4dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_goneMarginBottom="20dp"
+                app:layout_constraintTop_toBottomOf="@+id/death_cases">
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/lineChartdeath"
+                    android:clickable="false"
+                    android:layout_width="match_parent"
+                    android:padding="25dp"
+                    android:layout_height="match_parent"/>
+
+            </androidx.cardview.widget.CardView>
+
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>
