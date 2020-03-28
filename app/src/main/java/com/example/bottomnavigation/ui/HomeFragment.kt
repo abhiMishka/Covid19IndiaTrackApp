@@ -82,6 +82,7 @@ class HomeFragment : Fragment() {
             val gson = Gson()
             val allDataAResponse: AllDataResponse =
                     gson.fromJson(response.body(), AllDataResponse::class.java)
+            setCumulativeData(allDataAResponse)
             setupLineChartData(allDataAResponse)
             setupGaugeChartData(allDataAResponse)
             Log.i("testApi2", allDataAResponse.toString())
@@ -106,6 +107,21 @@ class HomeFragment : Fragment() {
             UtilFunctions.toast(response?.errorBody()?.string() ?: "Error")
         }
         print(response.toString())
+    }
+
+    private fun setCumulativeData(allDataAResponse: AllDataResponse){
+        if(!allDataAResponse.statewise.isNullOrEmpty()){
+            val cumulativeData =  allDataAResponse.statewise[0]
+            binding.activeCount.text = cumulativeData.active
+            binding.deathCount.text = cumulativeData.deaths
+            binding.totalCasesCount.text = cumulativeData.confirmed
+            binding.recoveredCount.text = cumulativeData.recovered
+        } else {
+            binding.activeCount.text = getString(R.string.not_known)
+            binding.deathCount.text = getString(R.string.not_known)
+            binding.totalCasesCount.text = getString(R.string.not_known)
+            binding.recoveredCount.text = getString(R.string.not_known)
+        }
     }
 
     fun setupLineChartData(allDataAResponse: AllDataResponse) {
@@ -177,8 +193,6 @@ class HomeFragment : Fragment() {
             binding.circularGaugeChart.visibility = View.VISIBLE
             val stateList = allDataAResponse.statewise[0]
             val circularGauge = AnyChart.circular()
-            circularGauge.tooltip(false)
-            circularGauge.credits(false)
             val maxRangeOfChart = stateList.confirmed.toInt().times(1.2)
 
             circularGauge.data(SingleValueDataSet(arrayOf(stateList.confirmed
@@ -201,7 +215,7 @@ class HomeFragment : Fragment() {
                     .fill(null as Fill?)
             xAxis.scale()
                     .minimum(0.0)
-                    .maximum(1000.0)
+                    .maximum(maxRangeOfChart)
             xAxis.ticks("{ interval: 1 }")
                     .minorTicks("{ interval: 1 }")
             xAxis.labels().enabled(false)
@@ -255,7 +269,6 @@ class HomeFragment : Fragment() {
 
         circularGauge.label(bar1LableIndex)
                 .text(title)
-                .useHtml(true)
                 .hAlign(HAlign.CENTER)
                 .vAlign(VAlign.MIDDLE)
         circularGauge.label(bar1LableIndex)

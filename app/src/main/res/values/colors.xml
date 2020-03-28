@@ -14,4 +14,11 @@
     <color name="cyan">#0097A7</color>
     <color name="indigo">#3F51B5</color>
     <color name="amber">#FFC107</color>
+    <color name="dark">#de000000</color>
+    <color name="lightgrey">#8a000000</color>
+    <color name="red">#d06666</color>
+
+
+
+
 </resources>

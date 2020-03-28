@@ -20,21 +20,134 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:id="@+id/page_title"
-                android:text="CoronaVirus Cases - India"
+                style="@style/MainHeading"
+                android:text="Coronavirus Pandemic (India)"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/lineChart"
-                android:layout_width="match_parent"
-                app:layout_constraintTop_toBottomOf="@+id/page_title"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/total_cases_heading"
+                android:layout_marginTop="5dp"
+                android:text="Total Cases"
+                style="@style/BodyLarge"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/page_title"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text = "1005"
+                android:id="@+id/total_cases_count"
+                app:layout_constraintTop_toBottomOf="@+id/total_cases_heading"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                style="@style/BodyLargeGrey" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/recovered_title_text"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Recovered"
+                style="@style/BodyLarge"
+                app:layout_constraintEnd_toStartOf="@+id/active_title_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/total_cases_count"/>
+
+            <TextView
+                android:id="@+id/recovered_count"
+                style="@style/BodyLargeGrey"
+                android:layout_width="0dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/primary"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@+id/recovered_title_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recovered_title_text"
+                tools:text="84" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@+id/death_count_text"
+                android:id="@+id/active_title_text"
+                android:layout_marginTop="5dp"
+                android:text="Active"
+                style="@style/BodyLarge"
+                app:layout_constraintTop_toBottomOf="@+id/total_cases_count"
+                app:layout_constraintStart_toEndOf="@+id/recovered_title_text"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                tools:text="845"
+                style="@style/BodyLargeGrey"
+                android:textColor="@color/dark"
+                android:id="@+id/active_count"
+                app:layout_constraintStart_toStartOf="@+id/active_title_text"
+                app:layout_constraintEnd_toEndOf="@+id/active_title_text"
+                app:layout_constraintTop_toBottomOf="@+id/active_title_text"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/death_count_text"
+                style="@style/BodyLarge"
+                android:text="Death"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/total_cases_count"
+                app:layout_constraintStart_toEndOf="@+id/active_title_text"
+                app:layout_constraintEnd_toEndOf="parent"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:text="20"
+                android:id="@+id/death_count"
+                app:layout_constraintTop_toBottomOf="@+id/death_count_text"
+                android:layout_marginTop="2dp"
+                app:layout_constraintStart_toStartOf="@+id/death_count_text"
+                app:layout_constraintEnd_toEndOf="@+id/death_count_text"
+                style="@style/BodyLargeGrey"
+                android:textColor="@color/red"/>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/circular_gauge_cv"
+                android:layout_width="match_parent"
                 android:layout_height="350dp"
-                android:layout_marginTop="8dp" />
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:elevation="4dp"
+                app:cardCornerRadius="4dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recovered_count">
+
+                <ProgressBar
+                    android:id="@+id/circular_gauge_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="invisible" />
+
+                <com.anychart.AnyChartView
+                    android:id="@+id/circular_gauge_chart"
+                    android:layout_width="388dp"
+                    android:layout_height="354dp" />
+
+            </androidx.cardview.widget.CardView>
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -47,33 +160,16 @@
                 android:layout_marginTop="8dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/lineChart" />
+                app:layout_constraintTop_toBottomOf="@id/circular_gauge_cv" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/circular_gauge_cv"
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/lineChart"
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
-                android:layout_marginStart ="10dp"
-                android:layout_marginEnd="10dp"
-                android:elevation="4dp"
-                android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@+id/circular_gauge_title"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:cardCornerRadius="4dp">
-                <ProgressBar
-                    android:id="@+id/circular_gauge_progress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="invisible"
-                    android:layout_gravity="center"/>
-                <com.anychart.AnyChartView
-                    android:id="@+id/circular_gauge_chart"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-            </androidx.cardview.widget.CardView>
-
+                android:layout_height="350dp"
+                android:layout_marginTop="8dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -86,7 +182,7 @@
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/circular_gauge_cv" />
+                app:layout_constraintTop_toBottomOf="@+id/lineChart" />
 
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/pieChart"
