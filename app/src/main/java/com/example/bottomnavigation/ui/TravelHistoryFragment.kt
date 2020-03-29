@@ -29,6 +29,7 @@ import kotlinx.coroutines.launch
 class TravelHistoryFragment : BaseFragment(), OnMapReadyCallback, AdvancedWebView.Listener {
 
     private var binding: FragmentNotificationsBinding? = null
+    var pageFinished = false
     //    var mapFragment: MapFragment? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         (activity as MainActivity?)?.disableSwipe()
@@ -36,7 +37,6 @@ class TravelHistoryFragment : BaseFragment(), OnMapReadyCallback, AdvancedWebVie
         if (binding == null) {
             binding = FragmentNotificationsBinding.inflate(inflater, container, false)
             binding?.webview?.setListener(activity, this)
-            binding?.webview?.loadUrl("https://www.bing.com/covid")
             binding?.webview?.isNestedScrollingEnabled = false
 
 //                mapFragment = activity?.fragmentManager?.findFragmentById(R.id.map) as MapFragment
@@ -44,6 +44,10 @@ class TravelHistoryFragment : BaseFragment(), OnMapReadyCallback, AdvancedWebVie
 //            }
         }
         activity?.title = getString(R.string.title_map)
+
+        if (!pageFinished) {
+            binding?.webview?.loadUrl("https://www.bing.com/covid")
+        }
 
         return binding?.root
     }
@@ -119,10 +123,14 @@ class TravelHistoryFragment : BaseFragment(), OnMapReadyCallback, AdvancedWebVie
     override fun onPageFinished(url: String?) {
         Log.i("testWeb", "onPageFinished")
 
-        (activity as BaseActivity).rotate?.pause()
-        loadingLl.visibility = View.GONE
-        webview.visibility = View.VISIBLE
+        loadingLl?.let {
+            (activity as BaseActivity)?.rotate?.pause()
+            it.visibility = View.GONE
+            pageFinished = true
+        }
+        webview?.visibility = View.VISIBLE
     }
+
 
     override fun onPageError(errorCode: Int, description: String?, failingUrl: String?) {
     }
