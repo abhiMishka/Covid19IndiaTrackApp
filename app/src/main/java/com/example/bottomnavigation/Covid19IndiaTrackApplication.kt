@@ -21,9 +21,7 @@ class Covid19IndiaTrackApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
-        runBlocking {
-            DataManager.syncData()
-        }
+
     }
 
     companion object {
