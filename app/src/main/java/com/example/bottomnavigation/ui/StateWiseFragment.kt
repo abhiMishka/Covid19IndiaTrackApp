@@ -30,7 +30,7 @@ class StateWiseFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-//        inflateUI()
+        inflateUI()
     }
 
     private fun initPaymentModeAdapter(recycleView: RecyclerView?, conFeeResponse: List<AllDataResponse.Statewise>) {
