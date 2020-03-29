@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:elevation="4dp"
-            android:theme="@style/ToolbarTheme"
+            android:background="@color/light_grey"
             app:popupTheme="@style/ThemeOverlay.MaterialComponents.Dark" />
 
         <FrameLayout
@@ -32,9 +32,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             app:elevation="4dp"
+            android:background="@color/light_grey"
             app:itemIconTint="@drawable/selector_bottom_nav"
             app:itemTextColor="@drawable/selector_bottom_nav"
-            app:labelVisibilityMode="labeled"
+            app:labelVisibilityMode="unlabeled"
             app:menu="@menu/navigation" />
 
     </RelativeLayout>

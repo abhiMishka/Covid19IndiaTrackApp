@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">BottomNavigation</string>
     <string name="title_home">Home</string>
+    <string name="title_national_stats">National Stats</string>
+    <string name="title_states_stats">State Stats</string>
+    <string name="title_map">Map</string>
+    <string name="title_information">Information</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_profile">Profile</string>
