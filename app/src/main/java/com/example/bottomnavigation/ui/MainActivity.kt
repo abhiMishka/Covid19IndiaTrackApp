@@ -14,8 +14,10 @@ import com.example.bottomnavigation.helper.createFragment
 import com.example.bottomnavigation.helper.findNavigationPositionById
 import com.example.bottomnavigation.helper.getTag
 import com.example.bottomnavigation.network.DataManager
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 
 class MainActivity : BaseActivity() {
@@ -38,6 +40,9 @@ class MainActivity : BaseActivity() {
             GlobalScope.launch {
                 DataManager.syncData()
                 binding.swipeRefresh.isRefreshing = false
+                runBlocking(Dispatchers.Main) {
+                    notifyFragmentsDataRefreshed()
+                }
             }
         }
 
@@ -53,6 +58,12 @@ class MainActivity : BaseActivity() {
         }
 
         initFragment(savedInstanceState)
+    }
+
+    fun notifyFragmentsDataRefreshed(){
+        for(fragment in supportFragmentManager.fragments){
+            (fragment as BaseFragment).onDataRefreshed()
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

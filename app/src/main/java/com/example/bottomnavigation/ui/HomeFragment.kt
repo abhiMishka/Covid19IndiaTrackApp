@@ -29,7 +29,7 @@ import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 
 
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment() {
 
     private lateinit var binding: FragmentHomeBinding
 
@@ -258,7 +258,11 @@ class HomeFragment : Fragment() {
         bar103.zIndex(4.0)
     }
 
+    override fun onDataRefreshed() {
+        drawCharts()
+    }
+
 }
 
-private class CustomDataEntry(x: String, value: Number) : ValueDataEntry(x, value) {}
+private class CustomDataEntry(x: String, value: Number) : ValueDataEntry(x, value)
 

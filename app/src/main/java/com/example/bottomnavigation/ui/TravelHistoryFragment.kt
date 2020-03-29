@@ -28,7 +28,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
-class TravelHistoryFragment : Fragment(), OnMapReadyCallback, AdvancedWebView.Listener {
+class TravelHistoryFragment : BaseFragment(), OnMapReadyCallback, AdvancedWebView.Listener {
 
     private var binding: FragmentNotificationsBinding? = null
     //    var mapFragment: MapFragment? = null
@@ -36,7 +36,7 @@ class TravelHistoryFragment : Fragment(), OnMapReadyCallback, AdvancedWebView.Li
         if (binding == null) {
             binding = FragmentNotificationsBinding.inflate(inflater, container, false)
             binding?.webview?.setListener(activity, this)
-            binding?.webview?.loadUrl("https://www.bing.com/covid");
+            binding?.webview?.loadUrl("https://www.bing.com/covid")
 
 //            if (mapFragment == null) {
 //                mapFragment = activity?.fragmentManager?.findFragmentById(R.id.map) as MapFragment
@@ -46,6 +46,10 @@ class TravelHistoryFragment : Fragment(), OnMapReadyCallback, AdvancedWebView.Li
         activity?.title = getString(R.string.title_map)
 
         return binding?.root
+    }
+
+    override fun onDataRefreshed() {
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -97,7 +101,7 @@ class TravelHistoryFragment : Fragment(), OnMapReadyCallback, AdvancedWebView.Li
                 if (arr.size > 1) {
                     val lat: Double = arr[0].toDouble()
                     val lng: Double = arr[1].toDouble()
-                    map?.addMarker(
+                    map.addMarker(
                             MarkerOptions()
                                     .position(LatLng(lat, lng))
                                     .title(travelHistory.address))

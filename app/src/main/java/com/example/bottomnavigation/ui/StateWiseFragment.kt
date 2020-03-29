@@ -18,7 +18,7 @@ interface ItemSelectListener {
     fun onItemClick(stateWiseData: AllDataResponse.Statewise, clickPosition: Int)
 }
 
-class StateWiseFragment : Fragment() {
+class StateWiseFragment : BaseFragment() {
 
     private lateinit var binding: FragmentStateWiseBinding
 
@@ -57,6 +57,11 @@ class StateWiseFragment : Fragment() {
     companion object {
         val TAG: String = StateWiseFragment::class.java.simpleName
         fun newInstance() = StateWiseFragment()
+    }
+
+    override fun onDataRefreshed() {
+        //todo only refesh adapter later
+        inflateUI()
     }
 
 }
