@@ -47,6 +47,7 @@ dependencies {
     implementation "com.google.android.material:material:$materialVersion"
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation "junit:junit:$junitVersion"
     androidTestImplementation("androidx.test.espresso:espresso-core:$espressoVersion", {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -83,6 +84,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:17.0.0'
     implementation 'com.google.maps.android:android-maps-utils:0.5+'
     implementation 'com.google.android.libraries.places:places-compat:2.0.0'
+
+    implementation 'com.github.delight-im:Android-AdvancedWebView:v3.0.0'
 
 
 }

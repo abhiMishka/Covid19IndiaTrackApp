@@ -3,40 +3,48 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        android:orientation="vertical"
-        android:theme="@style/AppTheme"
         tools:context=".ui.MainActivity">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:elevation="4dp"
-            android:background="@color/light_grey"
-            app:popupTheme="@style/ThemeOverlay.MaterialComponents.Dark" />
-
-        <FrameLayout
-            android:id="@+id/container"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/bottom_navigation"
-            android:layout_below="@+id/toolbar" />
+            android:fitsSystemWindows="true"
+            android:orientation="vertical"
+            android:theme="@style/AppTheme">
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            app:elevation="4dp"
-            android:background="@color/light_grey"
-            app:itemIconTint="@drawable/selector_bottom_nav"
-            app:itemTextColor="@drawable/selector_bottom_nav"
-            app:labelVisibilityMode="unlabeled"
-            app:menu="@menu/navigation" />
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/light_grey"
+                android:elevation="4dp"
+                app:popupTheme="@style/ThemeOverlay.MaterialComponents.Dark" />
 
-    </RelativeLayout>
+            <FrameLayout
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/bottom_navigation"
+                android:layout_below="@+id/toolbar" />
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottom_navigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@color/light_grey"
+                app:elevation="4dp"
+                app:itemIconTint="@drawable/selector_bottom_nav"
+                app:itemTextColor="@drawable/selector_bottom_nav"
+                app:labelVisibilityMode="unlabeled"
+                app:menu="@menu/navigation" />
+
+        </RelativeLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 </layout>

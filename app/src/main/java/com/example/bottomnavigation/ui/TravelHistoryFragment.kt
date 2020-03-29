@@ -1,10 +1,12 @@
 package com.example.bottomnavigation.ui
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.example.bottomnavigation.R
 import com.example.bottomnavigation.databinding.FragmentNotificationsBinding
@@ -18,30 +20,50 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.gson.Gson
+import im.delight.android.webview.AdvancedWebView
+import kotlinx.android.synthetic.main.fragment_notifications.*
+import kotlinx.android.synthetic.main.layout_loading.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
-class TravelHistoryFragment : Fragment(), OnMapReadyCallback {
+class TravelHistoryFragment : BaseFragment(), OnMapReadyCallback, AdvancedWebView.Listener {
 
     private var binding: FragmentNotificationsBinding? = null
-    var mapFragment: MapFragment? = null
+    //    var mapFragment: MapFragment? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         if (binding == null) {
             binding = FragmentNotificationsBinding.inflate(inflater, container, false)
-            activity?.title = getString(R.string.title_map)
-            if (mapFragment == null) {
-                mapFragment = activity?.fragmentManager?.findFragmentById(R.id.map) as MapFragment
-                mapFragment?.getMapAsync(this)
-            }
+            binding?.webview?.setListener(activity, this)
+            binding?.webview?.loadUrl("https://www.bing.com/covid")
+
+//            if (mapFragment == null) {
+//                mapFragment = activity?.fragmentManager?.findFragmentById(R.id.map) as MapFragment
+//                mapFragment?.getMapAsync(this)
+//            }
         }
+        activity?.title = getString(R.string.title_map)
+
         return binding?.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onDataRefreshed() {
 
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true /* enabled by default */) {
+            override fun handleOnBackPressed() { // Handle the back button event
+                if (webview.canGoBack()) {
+                    webview.goBack()
+                } else {
+                    activity?.finish()
+                }
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
     companion object {
@@ -52,7 +74,7 @@ class TravelHistoryFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(map: GoogleMap?) {
 
         GlobalScope.launch(Dispatchers.Main) {
-            getTravelHistoryData(map)
+            //            getTravelHistoryData(map)
         }
 
     }
@@ -72,16 +94,16 @@ class TravelHistoryFragment : Fragment(), OnMapReadyCallback {
 
             map!!.moveCamera(center)
             map.animateCamera(zoom)
-            Log.i("testMap", "map is ready : travelHistoryResponse.travelHistory.size : " +travelHistoryResponse.travelHistory.size)
-            for (travelHistory in travelHistoryResponse.travelHistory){
+            Log.i("testMap", "map is ready : travelHistoryResponse.travelHistory.size : " + travelHistoryResponse.travelHistory.size)
+            for (travelHistory in travelHistoryResponse.travelHistory) {
                 val latLong = travelHistory.latlong
                 val arr = latLong.split(",")
-                if(arr.size>1) {
-                    val lat : Double = arr[0].toDouble()
-                    val lng : Double = arr[1].toDouble()
-                    map?.addMarker(
+                if (arr.size > 1) {
+                    val lat: Double = arr[0].toDouble()
+                    val lng: Double = arr[1].toDouble()
+                    map.addMarker(
                             MarkerOptions()
-                                    .position(LatLng(lat,lng))
+                                    .position(LatLng(lat, lng))
                                     .title(travelHistory.address))
                 }
             }
@@ -92,5 +114,30 @@ class TravelHistoryFragment : Fragment(), OnMapReadyCallback {
         }
         print(response.toString())
     }
+
+    override fun onPageFinished(url: String?) {
+        Log.i("testWeb", "onPageFinished")
+
+        (activity as BaseActivity).rotate?.pause()
+        loadingLl.visibility = View.GONE
+        webview.visibility = View.VISIBLE
+    }
+
+    override fun onPageError(errorCode: Int, description: String?, failingUrl: String?) {
+    }
+
+    override fun onDownloadRequested(url: String?, suggestedFilename: String?, mimeType: String?, contentLength: Long, contentDisposition: String?, userAgent: String?) {
+    }
+
+    override fun onExternalPageRequest(url: String?) {
+    }
+
+    override fun onPageStarted(url: String?, favicon: Bitmap?) {
+        Log.i("testWeb", "onPageStareted")
+        loadingLl.visibility = View.VISIBLE
+        webview.visibility = View.GONE
+        (activity as BaseActivity).rotateClockwise(appIconIv)
+    }
+
 
 }
