@@ -27,7 +27,6 @@ class StateWiseAdapter(val conFeeData: List<AllDataResponse.Statewise>,
     }
 
     class PaymentModeViewHolder(itemView: View, itemClickListener: ItemSelectListener) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
-        val context = itemView.context!!
         val listener = itemClickListener
         fun setData(data: AllDataResponse.Statewise, position: Int) {
             itemView.deltaStateTv.text = data.delta.confirmed.toString()

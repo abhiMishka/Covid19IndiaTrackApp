@@ -3,31 +3,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.bottomnavigation">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-
-
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:allowBackup="false"
         android:name=".Covid19IndiaTrackApplication"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        tools:replace="android:allowBackup"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
-        <activity
-            android:configChanges="uiMode"
-            android:name=".ui.MainActivity">
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:replace="android:allowBackup">
+        <activity android:name=".ui.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.MainActivity"
+            android:configChanges="uiMode">
+        </activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAr_xvzXWLXKBb8x8_SjC0O5sUNYXr0Lrk"/>
+            android:value="AIzaSyAr_xvzXWLXKBb8x8_SjC0O5sUNYXr0Lrk" />
     </application>
 
 </manifest>
