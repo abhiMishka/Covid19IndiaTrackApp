@@ -1,28 +1,18 @@
 package com.example.bottomnavigation.ui
 
-import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.anychart.APIlib
 import com.example.bottomnavigation.R
 import com.example.bottomnavigation.databinding.FragmentHomeBinding
 import com.example.bottomnavigation.helper.UtilFunctions
-import com.example.bottomnavigation.network.Repository
 import com.example.bottomnavigation.network.dataclasses.AllDataResponse
-import com.example.bottomnavigation.network.dataclasses.RawDataAResponse
-import com.example.bottomnavigation.network.dataclasses.StateWiseResponse
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
-import com.google.gson.Gson
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import com.anychart.graphics.vector.SolidFill
 import com.anychart.graphics.vector.Fill
 import com.anychart.chart.common.dataentry.SingleValueDataSet
@@ -38,14 +28,9 @@ import com.anychart.enums.MarkerType
 import com.anychart.enums.TooltipPositionMode
 import com.anychart.graphics.vector.Stroke
 import com.example.bottomnavigation.helper.GraphMarker
+import com.example.bottomnavigation.network.DataManager
 import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.components.AxisBase
-import com.github.mikephil.charting.components.Legend
-import com.github.mikephil.charting.components.YAxis
-import com.github.mikephil.charting.formatter.IAxisValueFormatter
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
-import com.github.mikephil.charting.formatter.ValueFormatter
-import java.lang.Appendable
 
 
 class HomeFragment : Fragment() {
@@ -65,64 +50,19 @@ class HomeFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-
-        GlobalScope.launch(Dispatchers.Main) {
-            getStateWiseData()
-            getRawData()
-            getAllData()
-        }
+        drawCharts()
     }
 
-    suspend fun getStateWiseData() {
-        val repo = Repository()
-        val response = repo.getStateWiseData()
-
-        if (response?.isSuccessful == true) {
-            val gson = Gson()
-            val stateWiseResponse: StateWiseResponse =
-                    gson.fromJson(response.body(), StateWiseResponse::class.java)
-            Log.i("testApi", stateWiseResponse.toString())
-        } else {
-            UtilFunctions.toast(response?.errorBody()?.string() ?: "Error")
-        }
-        print(response.toString())
-    }
-
-
-    suspend fun getAllData() {
-        val repo = Repository()
+    fun drawCharts() {
         binding.circularGaugeProgress.visibility = View.VISIBLE
-        val response = repo.getAllData()
-        if (response?.isSuccessful == true) {
-            val gson = Gson()
-            val allDataAResponse: AllDataResponse =
-                    gson.fromJson(response.body(), AllDataResponse::class.java)
-            val timeOfResponse = System.currentTimeMillis()
+        val allDataAResponse: AllDataResponse? = DataManager.allDataAResponse
+        allDataAResponse?.let {
+            val time = System.currentTimeMillis()
             setCumulativeData(allDataAResponse)
             setUpLineChartData(allDataAResponse)
-            setupGaugeChartData(allDataAResponse,timeOfResponse)
-
-        } else {
-            UtilFunctions.toast(response?.errorBody()?.string() ?: "Error")
+            setupGaugeChartData(allDataAResponse,time)
         }
 
-    }
-
-    suspend fun getRawData() {
-        val repo = Repository()
-        val response = repo.getRawData()
-
-        if (response?.isSuccessful == true) {
-            val gson = Gson()
-            val rawDataAResponse: RawDataAResponse =
-                    gson.fromJson(response.body(), RawDataAResponse::class.java)
-            Log.i("testApi", rawDataAResponse.toString())
-
-        } else {
-            UtilFunctions.toast(response?.errorBody()?.string() ?: "Error")
-        }
-        print(response.toString())
     }
 
     private fun setCumulativeData(allDataAResponse: AllDataResponse) {
@@ -140,14 +80,13 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setUpLineChartData(allDataAResponse: AllDataResponse){
-
+    private fun setUpLineChartData(allDataAResponse: AllDataResponse) {
         setupLineTotalChartData(allDataAResponse)
         setupLineTotalRecoveredData(allDataAResponse)
         setUpLineTotalDeathData(allDataAResponse)
     }
 
-    private fun setUpLineTotalDeathData(allDataAResponse: AllDataResponse){
+    private fun setUpLineTotalDeathData(allDataAResponse: AllDataResponse) {
         val yVals = ArrayList<Entry>()
         val xVals = ArrayList<String>()
         for ((i, case) in allDataAResponse.casesTimeSeries.withIndex()) {
@@ -155,17 +94,17 @@ class HomeFragment : Fragment() {
             yVals.add(Entry(i.toFloat(), case.totaldeceased.toFloat(), case))
         }
 
-        createGraph(binding.lineChartdeath,resources.getColor(R.color.red),yVals,"Total Death",xVals)
+        createGraph(binding.lineChartdeath, resources.getColor(R.color.red), yVals, "Total Death", xVals)
     }
 
-    private fun setupLineTotalRecoveredData(allDataAResponse: AllDataResponse){
+    private fun setupLineTotalRecoveredData(allDataAResponse: AllDataResponse) {
         val yVals = ArrayList<Entry>()
         val xVals = ArrayList<String>()
         for ((i, case) in allDataAResponse.casesTimeSeries.withIndex()) {
             xVals.add(UtilFunctions.converDateFormat(case.date))
             yVals.add(Entry(i.toFloat(), case.totalrecovered.toFloat(), case))
         }
-        createGraph(binding.lineChartrecovered,resources.getColor(R.color.primary),yVals,"Total Recovered",xVals)
+        createGraph(binding.lineChartrecovered, resources.getColor(R.color.primary), yVals, "Total Recovered", xVals)
     }
 
     private fun setupLineTotalChartData(allDataAResponse: AllDataResponse) {
@@ -175,10 +114,10 @@ class HomeFragment : Fragment() {
             xVals.add(UtilFunctions.converDateFormat(case.date))
             yVals.add(Entry(i.toFloat(), case.totalconfirmed.toFloat(), case))
         }
-        createGraph(binding.lineChart,resources.getColor(R.color.blue_pale),yVals,"Total Confirmed",xVals)
+        createGraph(binding.lineChart, resources.getColor(R.color.blue_pale), yVals, "Total Confirmed", xVals)
     }
 
-    private fun createGraph(view: LineChart, color:Int, yVals:ArrayList<Entry>, dataSet:String,xVals:ArrayList<String>){
+    private fun createGraph(view: LineChart, color: Int, yVals: ArrayList<Entry>, dataSet: String, xVals: ArrayList<String>) {
 
         val set1 = LineDataSet(yVals, dataSet)
         set1.color = color
@@ -202,11 +141,11 @@ class HomeFragment : Fragment() {
         view.setPinchZoom(true)
         view.axisLeft.setDrawGridLines(false)
         view.xAxis.setDrawGridLines(false)
-        val  yAxisRight = view.axisRight
+        val yAxisRight = view.axisRight
         yAxisRight.isEnabled = false
         view.xAxis.valueFormatter = IndexAxisValueFormatter(xVals)
         view.xAxis.position = XAxis.XAxisPosition.BOTTOM
-        val marker = GraphMarker(context,R.layout.marker_item,yVals)
+        val marker = GraphMarker(context, R.layout.marker_item, yVals)
         view.marker = marker
         view.notifyDataSetChanged()
     }
@@ -321,5 +260,6 @@ class HomeFragment : Fragment() {
     }
 
 }
-   private class CustomDataEntry(x:String,value:Number) : ValueDataEntry(x,value){}
+
+private class CustomDataEntry(x: String, value: Number) : ValueDataEntry(x, value) {}
 

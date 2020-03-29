@@ -1,6 +1,8 @@
 package com.example.bottomnavigation
 
 import android.app.Application
+import com.example.bottomnavigation.network.DataManager
+import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
@@ -19,6 +21,7 @@ class Covid19IndiaTrackApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+
     }
 
     companion object {
