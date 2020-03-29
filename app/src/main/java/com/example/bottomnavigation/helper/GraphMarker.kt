@@ -17,7 +17,7 @@ class GraphMarker(context: Context?,layout : Int,val yvals:ArrayList<Entry>) : M
     override fun refreshContent(e: Entry?, highlight: Highlight?) {
         super.refreshContent(e, highlight)
         val valueTv = findViewById<TextView>(R.id.value_tv)
-        valueTv.text = "Cases:${e?.y?.toInt()}"
+        valueTv.text = "${e?.y?.toInt()}"
         setOffset(-(width).toFloat(),-height.toFloat())
     }
 }

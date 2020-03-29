@@ -2,7 +2,6 @@ package com.example.bottomnavigation.ui
 
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.bottomnavigation.R
@@ -16,7 +15,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 
 class MainActivity : BaseActivity() {
@@ -64,6 +62,14 @@ class MainActivity : BaseActivity() {
         }
 
         initFragment(savedInstanceState)
+    }
+
+    fun disableSwipe() {
+        binding.swipeRefresh.setEnabled(false)
+    }
+
+    fun enableSwipe() {
+        binding.swipeRefresh.setEnabled(true)
     }
 
     fun notifyFragmentsDataRefreshed(){
