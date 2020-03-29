@@ -15,7 +15,7 @@ import com.example.bottomnavigation.helper.findNavigationPositionById
 import com.example.bottomnavigation.helper.getTag
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
