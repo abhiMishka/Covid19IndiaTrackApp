@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@android:color/holo_red_dark"
+    android:layout_width="match_parent"
+    android:id="@+id/internet_bar"
+    android:visibility="visible"
+    android:layout_height="wrap_content" >
+    <TextView
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        style="@style/Heading"
+        android:textColor="@color/white"
+        android:text="@string/no_internet_connection"
+        android:layout_height="wrap_content" />
+</LinearLayout>
