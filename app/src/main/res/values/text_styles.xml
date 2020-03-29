@@ -39,6 +39,13 @@
         <item name="android:gravity">center_horizontal</item>
     </style>
 
+    <style name="SubsctiptStyle">
+        <item name="android:textSize">9sp</item>
+        <item name="android:textColor">@color/lightgrey</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
     <style name="BodyBoldLight">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/lightgrey</item>

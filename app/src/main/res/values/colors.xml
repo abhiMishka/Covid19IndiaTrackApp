@@ -16,6 +16,9 @@
     <color name="amber">#FFC107</color>
     <color name="lightgrey20">#1a000000</color>
     <color name="blue_pale">#64b5f6</color>
+    <color name="pale_blue">#cce2f1</color>
+    <color name="landing_background_pale_blue">#0d006db8</color>
+
 
     <color name="colorPrimary">#004681</color>
     <color name="colorPrimaryDark">#003f74</color>

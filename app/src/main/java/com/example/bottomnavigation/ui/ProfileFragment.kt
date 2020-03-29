@@ -15,7 +15,7 @@ class ProfileFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
-        activity?.title = getString(R.string.title_profile)
+        activity?.title = getString(R.string.title_information)
         return binding.root
     }
 

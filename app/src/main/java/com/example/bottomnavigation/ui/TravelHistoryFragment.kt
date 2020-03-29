@@ -30,7 +30,7 @@ class TravelHistoryFragment : Fragment(), OnMapReadyCallback {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         if (binding == null) {
             binding = FragmentNotificationsBinding.inflate(inflater, container, false)
-            activity?.title = getString(R.string.title_notifications)
+            activity?.title = getString(R.string.title_map)
             if (mapFragment == null) {
                 mapFragment = activity?.fragmentManager?.findFragmentById(R.id.map) as MapFragment
                 mapFragment?.getMapAsync(this)

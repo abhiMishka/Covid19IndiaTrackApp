@@ -7,7 +7,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="5dp">
+        android:paddingBottom="5dp"
+        android:background="@color/landing_background_pale_blue">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -145,8 +146,18 @@
                 <com.anychart.AnyChartView
                     android:id="@+id/circular_gauge_chart"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/last_updated_time"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|left"
+                        style="@style/SubsctiptStyle"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginStart="4dp"
+                        android:textColor="#1976d2"
+                        tools:text="*Last Updated : 24th March 2020 , 5:00 AM"/>
+                </com.anychart.AnyChartView>
             </androidx.cardview.widget.CardView>
 
 

@@ -39,7 +39,7 @@ class HomeFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-        activity?.title = getString(R.string.title_home)
+        activity?.title = getString(R.string.title_national_stats)
         return binding.root
     }
 
@@ -57,9 +57,10 @@ class HomeFragment : Fragment() {
         binding.circularGaugeProgress.visibility = View.VISIBLE
         val allDataAResponse: AllDataResponse? = DataManager.allDataAResponse
         allDataAResponse?.let {
+            val time = System.currentTimeMillis()
             setCumulativeData(allDataAResponse)
             setUpLineChartData(allDataAResponse)
-            setupGaugeChartData(allDataAResponse)
+            setupGaugeChartData(allDataAResponse,time)
         }
 
     }
@@ -149,9 +150,11 @@ class HomeFragment : Fragment() {
         view.notifyDataSetChanged()
     }
 
-    private fun setupGaugeChartData(allDataAResponse: AllDataResponse) {
+    private fun setupGaugeChartData(allDataAResponse: AllDataResponse, time:Long) {
         if (!allDataAResponse.statewise.isNullOrEmpty()) {
             binding.circularGaugeChart.visibility = View.VISIBLE
+            binding.lastUpdatedTime.visibility = View.VISIBLE
+            binding.lastUpdatedTime.text = String.format("*Last Updated : %s %s",UtilFunctions.getThFormatTime(time),UtilFunctions.getTime(time))
             APIlib.getInstance().setActiveAnyChartView(binding.circularGaugeChart)
             val stateList = allDataAResponse.statewise[0]
             val circularGauge = AnyChart.circular()
@@ -217,6 +220,7 @@ class HomeFragment : Fragment() {
             binding.circularGaugeChart.setChart(circularGauge)
         } else {
             binding.circularGaugeChart.visibility = View.GONE
+            binding.lastUpdatedTime.visibility = View.GONE
             UtilFunctions.toast("Not able to draw graph")
         }
     }
