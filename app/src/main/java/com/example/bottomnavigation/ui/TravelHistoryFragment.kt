@@ -23,7 +23,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
-class NotificationsFragment : Fragment(), OnMapReadyCallback {
+class TravelHistoryFragment : Fragment(), OnMapReadyCallback {
 
     private var binding: FragmentNotificationsBinding? = null
     var mapFragment: MapFragment? = null
@@ -45,8 +45,8 @@ class NotificationsFragment : Fragment(), OnMapReadyCallback {
     }
 
     companion object {
-        val TAG: String = NotificationsFragment::class.java.simpleName
-        fun newInstance() = NotificationsFragment()
+        val TAG: String = TravelHistoryFragment::class.java.simpleName
+        fun newInstance() = TravelHistoryFragment()
     }
 
     override fun onMapReady(map: GoogleMap?) {

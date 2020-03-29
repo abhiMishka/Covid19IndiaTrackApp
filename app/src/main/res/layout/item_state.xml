@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="5dp"
+    app:cardCornerRadius="5dp"
+    android:layout_margin="5dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="12dp"
+        android:baselineAligned="false"
+        android:paddingBottom="12dp"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/stateNameTv"
+                style="@style/CardBoldText"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Kerala"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:paddingLeft="5dp"
+                android:gravity="center_vertical"
+                android:id="@+id/state_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_label"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/stateNameTv"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/deltaIv"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:background="@drawable/ic_arrow_up">
+                </ImageView>
+
+                <TextView
+                    android:id="@+id/deltaStateTv"
+                    style="@style/LableText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_marginTop="4dp"
+                    android:gravity="start"
+                    android:singleLine="false"
+                    android:text="5%"
+                    android:textAlignment="textStart" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:gravity="center_vertical"
+            android:id="@+id/location_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textColor="@color/quantum_black_100"
+                android:text="Confirmed"
+                android:textStyle="bold"
+                android:id="@+id/location_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"/>
+
+            <TextView
+                android:layout_marginLeft="5dp"
+                app:layout_constraintLeft_toRightOf="@+id/location_img"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/confirmedVaueTv"
+                style="@style/Heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:textSize="14sp"
+                android:lineSpacingExtra="2dp"
+                android:ellipsize="end"
+                tools:text="112" />
+
+            <TextView
+                app:layout_constraintRight_toLeftOf="@+id/activeVaueTv"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textColor="@color/quantum_black_100"
+                android:text="Active"
+                android:textStyle="bold"
+                android:id="@+id/activeTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp" />
+
+            <TextView
+                android:layout_marginLeft="5dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/activeVaueTv"
+                style="@style/Heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:textSize="14sp"
+                android:lineSpacingExtra="2dp"
+                android:ellipsize="end"
+                tools:text="112" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:gravity="center_vertical"
+            android:id="@+id/secondlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textColor="@color/quantum_black_100"
+                android:text="Recovered"
+                android:textStyle="bold"
+                android:id="@+id/recoveredTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"/>
+
+            <TextView
+                android:layout_marginLeft="5dp"
+                app:layout_constraintLeft_toRightOf="@+id/recoveredTv"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/recoveredVaueTv"
+                style="@style/Heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:textSize="14sp"
+                android:lineSpacingExtra="2dp"
+                android:ellipsize="end"
+                tools:text="112" />
+
+            <TextView
+                app:layout_constraintRight_toLeftOf="@+id/deathsVaueTv"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textColor="@color/quantum_black_100"
+                android:text="Deaths"
+                android:textStyle="bold"
+                android:id="@+id/deathsTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp" />
+
+            <TextView
+                android:layout_marginLeft="5dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/deathsVaueTv"
+                style="@style/Heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:textSize="14sp"
+                android:lineSpacingExtra="2dp"
+                android:ellipsize="end"
+                tools:text="112" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/vehicle_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/top"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="12dp"
+        android:background="@color/greybg"
+        android:orientation="vertical" />
+</androidx.cardview.widget.CardView>
