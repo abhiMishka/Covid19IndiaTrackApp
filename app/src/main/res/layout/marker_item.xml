@@ -10,7 +10,7 @@
         android:id="@+id/value_tv"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text = "Cases : 34"
+        android:text = "34"
         style="@style/MarkerLight"/>
 
 </LinearLayout>

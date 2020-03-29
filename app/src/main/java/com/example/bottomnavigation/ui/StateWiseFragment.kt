@@ -25,6 +25,8 @@ class StateWiseFragment : BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentStateWiseBinding.inflate(inflater, container, false)
         activity?.title = getString(R.string.title_states_stats)
+        (activity as MainActivity?)?.enableSwipe()
+
         return binding.root
     }
 
