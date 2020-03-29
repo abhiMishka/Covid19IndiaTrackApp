@@ -37,8 +37,10 @@ import com.anychart.graphics.vector.text.VAlign
 import com.anychart.enums.MarkerType
 import com.anychart.enums.TooltipPositionMode
 import com.anychart.graphics.vector.Stroke
+import com.example.bottomnavigation.helper.GraphMarker
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.AxisBase
+import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.formatter.IAxisValueFormatter
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
@@ -146,30 +148,36 @@ class HomeFragment : Fragment() {
 
     private fun setUpLineTotalDeathData(allDataAResponse: AllDataResponse){
         val yVals = ArrayList<Entry>()
+        val xVals = ArrayList<String>()
         for ((i, case) in allDataAResponse.casesTimeSeries.withIndex()) {
+            xVals.add(UtilFunctions.converDateFormat(case.date))
             yVals.add(Entry(i.toFloat(), case.totaldeceased.toFloat(), case))
         }
-        createGraph(binding.lineChartdeath,resources.getColor(R.color.red),yVals,"DataSet 3")
+
+        createGraph(binding.lineChartdeath,resources.getColor(R.color.red),yVals,"Total Death",xVals)
     }
 
     private fun setupLineTotalRecoveredData(allDataAResponse: AllDataResponse){
         val yVals = ArrayList<Entry>()
+        val xVals = ArrayList<String>()
         for ((i, case) in allDataAResponse.casesTimeSeries.withIndex()) {
+            xVals.add(UtilFunctions.converDateFormat(case.date))
             yVals.add(Entry(i.toFloat(), case.totalrecovered.toFloat(), case))
         }
-        createGraph(binding.lineChartrecovered,resources.getColor(R.color.primary),yVals,"DataSet 2")
+        createGraph(binding.lineChartrecovered,resources.getColor(R.color.primary),yVals,"Total Recovered",xVals)
     }
 
     private fun setupLineTotalChartData(allDataAResponse: AllDataResponse) {
         val yVals = ArrayList<Entry>()
+        val xVals = ArrayList<String>()
         for ((i, case) in allDataAResponse.casesTimeSeries.withIndex()) {
-//                xAxisValues.add(case.date)
+            xVals.add(UtilFunctions.converDateFormat(case.date))
             yVals.add(Entry(i.toFloat(), case.totalconfirmed.toFloat(), case))
         }
-        createGraph(binding.lineChart,resources.getColor(R.color.blue_pale),yVals,"DataSet 1")
+        createGraph(binding.lineChart,resources.getColor(R.color.blue_pale),yVals,"Total Confirmed",xVals)
     }
 
-    private fun createGraph(view: LineChart, color:Int, yVals:ArrayList<Entry>, dataSet:String){
+    private fun createGraph(view: LineChart, color:Int, yVals:ArrayList<Entry>, dataSet:String,xVals:ArrayList<String>){
 
         val set1 = LineDataSet(yVals, dataSet)
         set1.color = color
@@ -183,20 +191,22 @@ class HomeFragment : Fragment() {
         val dataSets = ArrayList<ILineDataSet>()
         dataSets.add(set1)
         val data = LineData(dataSets)
-//        binding.lineChart.xAxis.valueFormatter = IndexAxisValueFormatter(xVals)
         view.data = data
         view.invalidate()
+        view.setTouchEnabled(true)
         view.description.isEnabled = false
         view.legend.isEnabled = false
-        view.setScaleEnabled(false)
+        view.setScaleEnabled(true)
         view.isClickable = false
-        view.setPinchZoom(false)
+        view.setPinchZoom(true)
         view.axisLeft.setDrawGridLines(false)
         view.xAxis.setDrawGridLines(false)
         val  yAxisRight = view.axisRight
         yAxisRight.isEnabled = false
-        view.setViewPortOffsets(0f, 0f, 0f, 0f)
+        view.xAxis.valueFormatter = IndexAxisValueFormatter(xVals)
         view.xAxis.position = XAxis.XAxisPosition.BOTTOM
+        val marker = GraphMarker(context,R.layout.marker_item,yVals)
+        view.marker = marker
         view.notifyDataSetChanged()
     }
 

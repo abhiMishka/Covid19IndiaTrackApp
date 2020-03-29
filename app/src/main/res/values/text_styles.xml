@@ -47,6 +47,12 @@
         <item name="android:gravity">end</item>
     </style>
 
+    <style name="MarkerLight">
+        <item name="android:textSize">8sp</item>
+        <item name="android:lineSpacingExtra">5sp</item>
+        <item name="android:gravity">end</item>
+    </style>
+
     <style name="BodyLight">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/lightgrey</item>

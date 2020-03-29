@@ -172,6 +172,7 @@
                 android:layout_marginEnd="10dp"
                 android:elevation="4dp"
                 android:clickable="false"
+                android:padding="25dp"
                 app:cardCornerRadius="4dp"
                 android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -182,8 +183,9 @@
                 <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/lineChart"
                     android:clickable="false"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_width="match_parent"
-                    android:padding="25dp"
                     android:layout_height="match_parent"/>
 
             </androidx.cardview.widget.CardView>
@@ -212,6 +214,7 @@
                 android:clickable="false"
                 app:cardCornerRadius="4dp"
                 android:layout_marginTop="8dp"
+                android:padding="25dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginBottom="20dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -220,8 +223,9 @@
                 <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/lineChartrecovered"
                     android:clickable="false"
+                    android:layout_marginStart="10dp"
                     android:layout_width="match_parent"
-                    android:padding="25dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_height="match_parent"/>
 
             </androidx.cardview.widget.CardView>
@@ -247,6 +251,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:elevation="4dp"
+                android:padding="25dp"
                 android:clickable="false"
                 app:cardCornerRadius="4dp"
                 android:layout_marginTop="8dp"
@@ -260,8 +265,9 @@
                 <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/lineChartdeath"
                     android:clickable="false"
+                    android:layout_marginStart="10dp"
                     android:layout_width="match_parent"
-                    android:padding="25dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_height="match_parent"/>
 
             </androidx.cardview.widget.CardView>
