@@ -19,6 +19,8 @@ class ProfileFragment : BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         activity?.title = getString(R.string.title_information)
+        (activity as MainActivity?)?.enableSwipe()
+
         return binding.root
     }
 

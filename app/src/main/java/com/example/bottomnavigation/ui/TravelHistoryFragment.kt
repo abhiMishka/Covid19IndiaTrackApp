@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.Fragment
 import com.example.bottomnavigation.R
 import com.example.bottomnavigation.databinding.FragmentNotificationsBinding
 import com.example.bottomnavigation.helper.UtilFunctions
@@ -15,7 +14,6 @@ import com.example.bottomnavigation.network.Repository
 import com.example.bottomnavigation.network.dataclasses.TravelHistoryResponse
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.MapFragment
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
@@ -33,12 +31,14 @@ class TravelHistoryFragment : BaseFragment(), OnMapReadyCallback, AdvancedWebVie
     private var binding: FragmentNotificationsBinding? = null
     //    var mapFragment: MapFragment? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        (activity as MainActivity?)?.disableSwipe()
+
         if (binding == null) {
             binding = FragmentNotificationsBinding.inflate(inflater, container, false)
             binding?.webview?.setListener(activity, this)
             binding?.webview?.loadUrl("https://www.bing.com/covid")
+            binding?.webview?.isNestedScrollingEnabled = false
 
-//            if (mapFragment == null) {
 //                mapFragment = activity?.fragmentManager?.findFragmentById(R.id.map) as MapFragment
 //                mapFragment?.getMapAsync(this)
 //            }
@@ -47,6 +47,7 @@ class TravelHistoryFragment : BaseFragment(), OnMapReadyCallback, AdvancedWebVie
 
         return binding?.root
     }
+
 
     override fun onDataRefreshed() {
 

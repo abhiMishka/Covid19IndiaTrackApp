@@ -36,6 +36,8 @@ class HomeFragment : BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         activity?.title = getString(R.string.title_national_stats)
+        (activity as MainActivity?)?.enableSwipe()
+
         return binding.root
     }
 
