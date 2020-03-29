@@ -118,7 +118,7 @@
                     android:scaleType="centerInside"
                     android:adjustViewBounds="true"
                     android:id="@+id/step_five_iv"
-                    android:src="@drawable/disctancing" />
+                    android:src="@drawable/feel" />
             </androidx.cardview.widget.CardView>
 
             <TextView
