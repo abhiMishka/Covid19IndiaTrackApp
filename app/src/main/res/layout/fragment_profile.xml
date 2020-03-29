@@ -198,6 +198,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/usefull_link_list_ll"
                 style="@style/BodyLight"
+                android:id="@+id/source_tv"
                 android:layout_marginTop="15dp"
                 android:textSize="10sp"
                 android:layout_marginBottom="10dp"

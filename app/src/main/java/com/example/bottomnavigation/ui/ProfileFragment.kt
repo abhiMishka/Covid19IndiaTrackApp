@@ -27,6 +27,11 @@ class ProfileFragment : Fragment() {
                 binding.usefullLinkListLl.visibility = View.VISIBLE
             }
         }
+
+        binding.sourceTv.setOnClickListener {
+            val sourceDialog = SourceDialog()
+            sourceDialog.show(fragmentManager!!,"show_source_dialog")
+        }
     }
 
     companion object {
