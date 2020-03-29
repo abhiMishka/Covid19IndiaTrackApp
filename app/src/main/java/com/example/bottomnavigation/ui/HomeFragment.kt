@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import com.anychart.APIlib
@@ -19,16 +18,11 @@ import com.anychart.graphics.vector.SolidFill
 import com.anychart.graphics.vector.Fill
 import com.anychart.chart.common.dataentry.SingleValueDataSet
 import com.anychart.AnyChart
-import com.anychart.chart.common.dataentry.DataEntry
 import com.anychart.chart.common.dataentry.ValueDataEntry
 import com.anychart.charts.CircularGauge
-import com.anychart.data.Set
 import com.anychart.enums.Anchor
 import com.anychart.graphics.vector.text.HAlign
 import com.anychart.graphics.vector.text.VAlign
-import com.anychart.enums.MarkerType
-import com.anychart.enums.TooltipPositionMode
-import com.anychart.graphics.vector.Stroke
 import com.example.bottomnavigation.helper.GraphMarker
 import com.example.bottomnavigation.network.DataManager
 import com.github.mikephil.charting.charts.LineChart
@@ -157,7 +151,7 @@ class HomeFragment : Fragment() {
             binding.circularGaugeChart.visibility = View.VISIBLE
             binding.lastUpdatedTime.visibility = View.VISIBLE
             binding.circularGaugeChart.animation = AnimationUtils.loadAnimation(context,
-                    R.anim.myanimation)
+                    R.anim.fade_in_animation)
             binding.lastUpdatedTime.text = String.format("*Last Updated : %s %s",UtilFunctions.getThFormatTime(time),UtilFunctions.getTime(time))
             APIlib.getInstance().setActiveAnyChartView(binding.circularGaugeChart)
             val stateList = allDataAResponse.statewise[0]

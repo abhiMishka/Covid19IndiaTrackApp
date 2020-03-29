@@ -13,6 +13,9 @@ import com.example.bottomnavigation.helper.BottomNavigationPosition
 import com.example.bottomnavigation.helper.createFragment
 import com.example.bottomnavigation.helper.findNavigationPositionById
 import com.example.bottomnavigation.helper.getTag
+import com.example.bottomnavigation.network.DataManager
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 class MainActivity : BaseActivity() {
@@ -29,6 +32,13 @@ class MainActivity : BaseActivity() {
 
         binding.toolbar.apply {
             setSupportActionBar(this)
+        }
+
+        binding.swipeRefresh.setOnRefreshListener {
+            GlobalScope.launch {
+                DataManager.syncData()
+                binding.swipeRefresh.isRefreshing = false
+            }
         }
 
         binding.bottomNavigation.apply {
