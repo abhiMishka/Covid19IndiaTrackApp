@@ -10,6 +10,7 @@
     <string name="title_profile">Profile</string>
     <string name="state_wise">State Wise Cases</string>
     <string name="not_known">Not known</string>
+    <string name="source_dilaog_text"><![CDATA[This is not an official government app.<br></br>The data has been gathered from the APIs provided by <u><a href="https://www.covid19india.org/links">Covid19india</a></u> and official <u><a href="https://www.who.int/">WHO</a></u> website<br></br> App contributors : <u><a href="https://www.linkedin.com/in/abhishekkumariiitdelhi/">Abhishek Kumar</a></u> and <u><a href="https://www.linkedin.com/in/shivarpit-sharma-67541014b/">Shivarpit Sharma</a></u>]]></string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
