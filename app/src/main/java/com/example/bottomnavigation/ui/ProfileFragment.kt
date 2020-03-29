@@ -16,7 +16,17 @@ class ProfileFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         activity?.title = getString(R.string.title_information)
+        setClickListeners()
         return binding.root
+    }
+    private fun setClickListeners(){
+        binding.usefullLinkTv.setOnClickListener {
+            if(binding.usefullLinkListLl.visibility == View.VISIBLE){
+                binding.usefullLinkListLl.visibility = View.GONE
+            }else{
+                binding.usefullLinkListLl.visibility = View.VISIBLE
+            }
+        }
     }
 
     companion object {

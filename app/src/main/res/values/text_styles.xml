@@ -36,7 +36,6 @@
         <item name="android:textColor">@color/dark</item>
         <item name="android:textStyle">bold</item>
         <item name="android:lineSpacingExtra">5sp</item>
-        <item name="android:gravity">center_horizontal</item>
     </style>
 
     <style name="SubsctiptStyle">
