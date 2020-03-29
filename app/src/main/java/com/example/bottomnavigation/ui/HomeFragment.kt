@@ -158,6 +158,7 @@ class HomeFragment : BaseFragment() {
             APIlib.getInstance().setActiveAnyChartView(binding.circularGaugeChart)
             val stateList = allDataAResponse.statewise[0]
             val circularGauge = AnyChart.circular()
+            circularGauge.tooltip(false)
             val maxRangeOfChart = stateList.confirmed.toInt().times(1.2)
 
             circularGauge.data(SingleValueDataSet(arrayOf(stateList.confirmed
