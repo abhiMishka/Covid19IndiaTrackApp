@@ -13,9 +13,14 @@ import com.example.bottomnavigation.helper.BottomNavigationPosition
 import com.example.bottomnavigation.helper.createFragment
 import com.example.bottomnavigation.helper.findNavigationPositionById
 import com.example.bottomnavigation.helper.getTag
+import com.example.bottomnavigation.network.DataManager
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -31,6 +36,16 @@ class MainActivity : AppCompatActivity() {
             setSupportActionBar(this)
         }
 
+        binding.swipeRefresh.setOnRefreshListener {
+            GlobalScope.launch {
+                DataManager.syncData()
+                binding.swipeRefresh.isRefreshing = false
+                runBlocking(Dispatchers.Main) {
+                    notifyFragmentsDataRefreshed()
+                }
+            }
+        }
+
         binding.bottomNavigation.apply {
             // This is required in Support Library 27 or lower:
             // bottomNavigation.disableShiftMode()
@@ -43,6 +58,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         initFragment(savedInstanceState)
+    }
+
+    fun notifyFragmentsDataRefreshed(){
+        for(fragment in supportFragmentManager.fragments){
+            (fragment as BaseFragment).onDataRefreshed()
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

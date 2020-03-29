@@ -9,9 +9,12 @@ import com.example.bottomnavigation.R
 import com.example.bottomnavigation.databinding.FragmentProfileBinding
 
 
-class ProfileFragment : Fragment() {
+class ProfileFragment : BaseFragment() {
 
     private lateinit var binding: FragmentProfileBinding
+
+    override fun onDataRefreshed() {
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
