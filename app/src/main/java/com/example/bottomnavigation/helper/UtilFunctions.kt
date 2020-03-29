@@ -1,9 +1,11 @@
 package com.example.bottomnavigation.helper
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.util.Preconditions
 import com.example.bottomnavigation.Covid19IndiaTrackApplication
-import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -49,5 +51,13 @@ class UtilFunctions {
             val format = SimpleDateFormat("hh:mm a", Locale.UK)
             return format.format(Date(time))
         }
+
+        fun isNetworkAvailable(): Boolean {
+            val connectivityManager = Covid19IndiaTrackApplication.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE)
+                    as ConnectivityManager?
+            val activeNetworkInfo = connectivityManager?.activeNetworkInfo
+            return activeNetworkInfo != null && activeNetworkInfo.isConnected
+        }
+
     }
 }

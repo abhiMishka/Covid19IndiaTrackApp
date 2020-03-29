@@ -8,7 +8,8 @@ open class BaseActivity : AppCompatActivity() {
     var rotate : ObjectAnimator? = null
 
     fun rotateClockwise(view: View?) {
-        rotate = ObjectAnimator.ofFloat(view, "rotation", 360f, 0f)
+        rotate = ObjectAnimator.ofFloat(view, "rotation", -360f, 0f)
+        rotate?.repeatCount = 1000
         rotate?.duration = 5000
         rotate?.start()
     }

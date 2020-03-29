@@ -1,6 +1,7 @@
 package com.example.bottomnavigation.ui
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -9,11 +10,9 @@ import com.example.bottomnavigation.databinding.ActivityMainBinding
 import com.example.bottomnavigation.extension.active
 import com.example.bottomnavigation.extension.attach
 import com.example.bottomnavigation.extension.detach
-import com.example.bottomnavigation.helper.BottomNavigationPosition
-import com.example.bottomnavigation.helper.createFragment
-import com.example.bottomnavigation.helper.findNavigationPositionById
-import com.example.bottomnavigation.helper.getTag
+import com.example.bottomnavigation.helper.*
 import com.example.bottomnavigation.network.DataManager
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -37,12 +36,19 @@ class MainActivity : BaseActivity() {
         }
 
         binding.swipeRefresh.setOnRefreshListener {
-            GlobalScope.launch {
-                DataManager.syncData()
-                binding.swipeRefresh.isRefreshing = false
-                runBlocking(Dispatchers.Main) {
-                    notifyFragmentsDataRefreshed()
+
+            if(UtilFunctions.isNetworkAvailable()) {
+                internetBarLayout.visibility = View.GONE
+                GlobalScope.launch {
+                    DataManager.syncData()
+                    binding.swipeRefresh.isRefreshing = false
+                    GlobalScope.launch(Dispatchers.Main) {
+                        notifyFragmentsDataRefreshed()
+                    }
                 }
+            }else{
+                internetBarLayout.visibility = View.VISIBLE
+                binding.swipeRefresh.isRefreshing = false
             }
         }
 
