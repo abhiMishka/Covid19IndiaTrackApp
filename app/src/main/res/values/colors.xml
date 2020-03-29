@@ -14,13 +14,190 @@
     <color name="cyan">#0097A7</color>
     <color name="indigo">#3F51B5</color>
     <color name="amber">#FFC107</color>
-    <color name="dark">#de000000</color>
-    <color name="lightgrey">#8a000000</color>
     <color name="lightgrey20">#1a000000</color>
-    <color name="red">#d06666</color>
     <color name="blue_pale">#64b5f6</color>
 
+    <color name="colorPrimary">#004681</color>
+    <color name="colorPrimaryDark">#003f74</color>
+
+    <color name="mdtp_dark_gray">#323232</color>
+
+    <color name="PrimaryColor">#004681</color>
+    <color name="PrimaryDarkColor">#003f74</color>
+
+    <color name="cards_primary_color">#445569</color>
+    <color name="very_light_red">#f8e9e5</color>
+
+    <!-- App Default colors -->
+    <color name="white_opacity">#03ffffff</color>
+
+    <color name="black_alpha_90">#E5000000</color>
+    <color name="black_alpha_80">#CC000000</color>
+    <color name="black_alpha_60">#9A000000</color>
+    <color name="black_alpha_20">#32000000</color>
+    <color name="black_alpha_40">#64000000</color>
+    <color name="black_alpha_50">#80000000</color>
+
+    <!--Floating Action Button-->
+    <color name="fab_ripple">#F7F7F7</color>
 
 
+    <!--Text colors-->
+    <color name="text_metallic">#445468</color>
+    <color name="secondary_text_55alpha">#8d737373</color>
+
+    <color name="set_selected_color">#4f5b6b</color>
+    <color name="set_unselected_color">#ffffff</color>
+
+
+    <color name="slate">#4f5b6b</color>
+    <color name="text_color">#dd010000</color>
+    <color name="darkish_blue">@color/colorPrimary</color>
+
+
+    <!-- New Colors -->
+
+    <color name="topheader_blue">@color/colorPrimary</color>
+    <color name="success_bullet">#8dc63f</color>
+    <color name="successtext_green">#49691e</color>
+    <color name="trans_successtext_green">#4049691e</color>
+    <color name="ripple_green">#49691e</color>
+    <color name="textlink_blue">#36a2eb</color>
+    <color name="polyline_blue">#80b0ff</color>
+    <color name="alerttext_orange">#e27b16</color>
+    <color name="ripple_orange">#98520e</color>
+    <color name="errortext_red">#b92300</color>
+    <color name="trans_errortext_red">#9Ab92300</color>
+    <color name="ripple_stop">#a30000</color>
+    <color name="secondarysearch_grey">#eeeeee</color>
+    <color name="listprimary_black">#dd000000</color>
+    <color name="smalltext_lightgrey">#89000000</color>
+    <color name="ßlable_blue">#e0e9f0</color>
+    <color name="black_38">#60000000</color>
+    <color name="border">#dddddd</color>
+
+    <color name="greybg">#f5f5f5</color>
+
+    <color name="white_0">#00FFFFFF</color>
+    <color name="white_100">#FFFFFFFF</color>
+    <color name="sunflower_yellow">#ffd700</color>
+    <color name="true_green">#00b300</color>
+    <color name="reddy_brown">#6d0303</color>
+    <color name="white_text_70">#b3ffffff</color>
+    <color name="white_text">#ffffff</color>
+    <color name="successtextgreen">#719809</color>
+    <color name="trans_successtextgreen">#9A719809</color>
+
+    <array name="speed_report_array">
+        <item>@color/sunflower_yellow</item>
+        <item>@color/true_green</item>
+        <item>@color/red</item>
+        <item>@color/reddy_brown</item>
+        <item>@color/red</item>
+    </array>
+    <color name="light_purple">#ddf0fe</color>
+    <color name="box_border">#9e9e9e</color>
+    <color name="switchTrackDisable">#eeeeee</color>
+    <color name="switchTrackActive">#eeeeee</color>
+    <color name="switchTrackNormal">#eeeeee</color>
+    <color name="dashboard_offer">#f5fafe</color>
+    <color name="page_background">#e5e5e5</color>
+
+    <color name="notification_bg">#fa5a4d</color>
+    <color name="stopped_bg">#ce3517</color>
+    <color name="trans_stopped_bg">#40ce3517</color>
+    <color name="geofences_bg">#933ec5</color>
+    <color name="overspeeding_bg">#f49808</color>
+    <color name="dark_sky_blue">#36a2eb</color>
+    <color name="topbar_notificationbg">#ecb806</color>
+    <color name="item_selected">#FFDFE8F7</color>
+    <color name="shadow">#3d000000</color>
+
+    <color name="settings_primary">#445569</color>
+
+
+    <integer-array name="progress_bar_colors">
+        <!--<item>@color/true_green</item>-->
+        <item>@color/notification_bg</item>
+    </integer-array>
+
+    <color name="spb_default_color">#33b5e5</color>
+    <color name="trans_white">#BFFFFFFF</color>
+    <color name="trans_blue">#407fc2ef</color>
+    <color name="trans_dark_blue">#401783cc</color>
+    <color name="promotion_button">#ddd34c</color>
+    <color name="promotion_subheading">#defefb00</color>
+    <color name="pig_pink">#e8778a</color>
+    <color name="greenish_teal">#30b39f</color>
+    <color name="sand_brown">#d4975b</color>
+    <color name="ice_blue">#f3faff</color>
+    <color name="red_pink">#ed3655</color>
+    <color name="warm_purple">#b53586</color>
+    <color name="tealish">#2dc3ac</color>
+    <color name="windows_blue">#359bbd</color>
+    <color name="dark_sky_blue_two">#3d9bda</color>
+    <color name="bluish_purple">#7e36eb</color>
+    <color name="dusty_orange">#f0833a</color>
+    <color name="terra_cotta">#c05235</color>
+    <color name="tealish_17">#2b1eacb2</color>
+    <color name="icon_color">#1cabb0</color>
+    <color name="light_khaki">#f5efbf</color>
+    <color name="dull_orange">#d3904e</color>
+    <color name="bluish_two">#2579bf</color>
+    <color name="black_30">#4c000000</color>
+    <color name="soft_green">#6cbf64</color>
+    <color name="dark_salmon">#ce5858</color>
+    <color name="dull_orange_two">#e27c3e</color>
+    <color name="light_grey">#f3f4f6</color>
+
+    <array name="language_color_pickers">
+        <item>@color/notification_bg</item>
+        <item>@color/geofences_bg</item>
+        <item>@color/overspeeding_bg</item>
+        <item>@color/success_bullet</item>
+        <item>@color/tealish</item>
+        <item>@color/topbar_notificationbg</item>
+        <item>@color/pig_pink</item>
+        <item>@color/settings_primary</item>
+    </array>
+
+    <!--pop up menu colors-->
+    <color name="menu_text_no_selected">#DD000000</color>
+    <color name="dot_color">#f95a4d</color>
+    <color name="dot_border_blue">@color/colorPrimary</color>
+    <color name="pale_grey">#eef1f3</color>
+
+    <!-- onboarding userinput screens colors-->
+    <color name="light_yellow">#fbe2a7</color>
+    <color name="status_bar_yellow">#e1cb96</color>
+    <color name="fleet_type_bg">#f3f4f6</color>
+    <color name="fleet_type_status_color">#e8e6e8</color>
+    <color name="fleet_type_truck_bg">#8bd0e8</color>
+    <color name="fleet_type_truck_status_bar">#7dbbd0</color>
+    <color name="fleet_type_bus_bg">#ff9a8d</color>
+    <color name="fleet_type_bus_status_bar">#e58a7f</color>
+    <color name="fleet_type_taxi_bg">#fbe2a7</color>
+    <color name="fleet_type_taxi__status_bar">#e1cb96</color>
+    <color name="fleet_type_car_bg">#c2eeac</color>
+    <color name="fleet_type_car_status_bar">#aed69a</color>
+    <color name="fleet_type_bike_bg">#9fe1e1</color>
+    <color name="fleet_type_bike_status_bar">#8fcaca</color>
+    <color name="fleet_type_other_bg">#e2c1af</color>
+    <color name="fleet_type_other_status_bar">#cbad9d</color>
+    <color name="grey_status_bar">#E5E5E5</color>
+    <color name="whatsapp_green">#4cc063</color>
+    <color name="blocked_lable">#4d7ea7</color>
+
+    <!-- video background color -->
+    <color name="tranparent_white">#80000000</color>
+    <color name="trans_black_70">#B3000000</color>
+    <color name="trans_black_65">#A6000000</color>
+    <color name="disable_color">#ffffff</color>
+
+    <color name="lable_blue">#e0e9f0</color>
+
+    <color name="dark">#de000000</color>
+    <color name="lightgrey">#8a000000</color>
+    <color name="red">#d06666</color>
 
 </resources>
