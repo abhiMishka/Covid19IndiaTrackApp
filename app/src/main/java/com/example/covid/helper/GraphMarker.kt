@@ -1,8 +1,8 @@
-package com.example.bottomnavigation.helper
+package com.example.covid.helper
 
 import android.content.Context
 import android.widget.TextView
-import com.example.bottomnavigation.R
+import com.example.covid.R
 import com.github.mikephil.charting.components.MarkerView
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.highlight.Highlight

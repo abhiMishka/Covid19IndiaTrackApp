@@ -1,6 +1,6 @@
-package com.example.bottomnavigation.network
+package com.example.covid.network
 
-import com.example.bottomnavigation.Covid19IndiaTrackApplication
+import com.example.covid.Covid19IndiaTrackApplication
 
 class Repository {
     var client  = Covid19IndiaTrackApplication.getRetrofitClient()?.create(HttpAPIService::class.java)

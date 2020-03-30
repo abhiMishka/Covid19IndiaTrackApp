@@ -1,4 +1,4 @@
-package com.example.bottomnavigation.network
+package com.example.covid.network
 
 import com.google.gson.JsonElement
 import okhttp3.ResponseBody

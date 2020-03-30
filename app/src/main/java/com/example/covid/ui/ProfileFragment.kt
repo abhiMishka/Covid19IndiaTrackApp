@@ -1,4 +1,4 @@
-package com.example.bottomnavigation.ui
+package com.example.covid.ui
 
 import android.os.Bundle
 import android.text.Html.FROM_HTML_MODE_LEGACY
@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.text.HtmlCompat
-import com.example.bottomnavigation.R
-import com.example.bottomnavigation.databinding.FragmentProfileBinding
+import com.example.covid.R
+import com.example.covid.databinding.FragmentProfileBinding
 
 
 class ProfileFragment : BaseFragment() {

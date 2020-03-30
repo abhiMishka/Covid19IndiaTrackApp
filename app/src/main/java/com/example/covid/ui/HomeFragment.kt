@@ -1,4 +1,4 @@
-package com.example.bottomnavigation.ui
+package com.example.covid.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import com.anychart.APIlib
-import com.example.bottomnavigation.R
-import com.example.bottomnavigation.databinding.FragmentHomeBinding
-import com.example.bottomnavigation.helper.UtilFunctions
-import com.example.bottomnavigation.network.dataclasses.AllDataResponse
+import com.example.covid.R
+import com.example.covid.databinding.FragmentHomeBinding
+import com.example.covid.helper.UtilFunctions
+import com.example.covid.network.dataclasses.AllDataResponse
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
@@ -23,8 +23,8 @@ import com.anychart.charts.CircularGauge
 import com.anychart.enums.Anchor
 import com.anychart.graphics.vector.text.HAlign
 import com.anychart.graphics.vector.text.VAlign
-import com.example.bottomnavigation.helper.GraphMarker
-import com.example.bottomnavigation.network.DataManager
+import com.example.covid.helper.GraphMarker
+import com.example.covid.network.DataManager
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 

@@ -1,4 +1,4 @@
-package com.example.bottomnavigation.network.dataclasses
+package com.example.covid.network.dataclasses
 
 
 import com.google.gson.annotations.SerializedName

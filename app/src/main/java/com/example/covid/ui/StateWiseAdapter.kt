@@ -1,10 +1,10 @@
-package com.example.bottomnavigation.ui
+package com.example.covid.ui
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.bottomnavigation.R
-import com.example.bottomnavigation.network.dataclasses.AllDataResponse
+import com.example.covid.R
+import com.example.covid.network.dataclasses.AllDataResponse
 import kotlinx.android.synthetic.main.item_state.view.*
 
 

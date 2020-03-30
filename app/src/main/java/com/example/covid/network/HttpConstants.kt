@@ -1,4 +1,4 @@
-package com.example.bottomnavigation.network
+package com.example.covid.network
 
 class HttpConstants {
 

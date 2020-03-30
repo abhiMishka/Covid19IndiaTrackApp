@@ -1,4 +1,4 @@
-package com.example.bottomnavigation.extension
+package com.example.covid.extension
 
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView

@@ -1,4 +1,4 @@
-package com.example.bottomnavigation.ui
+package com.example.covid.ui
 
 import android.animation.ObjectAnimator
 import android.view.View

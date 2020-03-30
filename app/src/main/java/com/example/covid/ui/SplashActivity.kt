@@ -1,11 +1,11 @@
-package com.example.bottomnavigation.ui
+package com.example.covid.ui
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.example.bottomnavigation.R
-import com.example.bottomnavigation.helper.UtilFunctions
-import com.example.bottomnavigation.network.DataManager
+import com.example.covid.R
+import com.example.covid.helper.UtilFunctions
+import com.example.covid.network.DataManager
 import kotlinx.android.synthetic.main.activity_splash.*
 import kotlinx.android.synthetic.main.layout_loading.*
 import kotlinx.coroutines.GlobalScope

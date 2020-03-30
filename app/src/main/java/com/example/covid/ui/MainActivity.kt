@@ -1,16 +1,16 @@
-package com.example.bottomnavigation.ui
+package com.example.covid.ui
 
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import com.example.bottomnavigation.R
-import com.example.bottomnavigation.databinding.ActivityMainBinding
-import com.example.bottomnavigation.extension.active
-import com.example.bottomnavigation.extension.attach
-import com.example.bottomnavigation.extension.detach
-import com.example.bottomnavigation.helper.*
-import com.example.bottomnavigation.network.DataManager
+import com.example.covid.R
+import com.example.covid.databinding.ActivityMainBinding
+import com.example.covid.extension.active
+import com.example.covid.extension.attach
+import com.example.covid.extension.detach
+import com.example.covid.helper.*
+import com.example.covid.network.DataManager
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

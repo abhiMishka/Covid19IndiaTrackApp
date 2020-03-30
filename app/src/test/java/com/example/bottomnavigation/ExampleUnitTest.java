@@ -1,4 +1,4 @@
-package com.example.bottomnavigation;
+package com.example.covid;
 
 import org.junit.Test;
 

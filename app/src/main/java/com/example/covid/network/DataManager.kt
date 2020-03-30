@@ -1,11 +1,11 @@
-package com.example.bottomnavigation.network
+package com.example.covid.network
 
 import android.util.Log
-import com.example.bottomnavigation.helper.UtilFunctions
-import com.example.bottomnavigation.network.dataclasses.AllDataResponse
-import com.example.bottomnavigation.network.dataclasses.RawDataAResponse
-import com.example.bottomnavigation.network.dataclasses.StateWiseResponse
-import com.example.bottomnavigation.network.dataclasses.TravelHistoryResponse
+import com.example.covid.helper.UtilFunctions
+import com.example.covid.network.dataclasses.AllDataResponse
+import com.example.covid.network.dataclasses.RawDataAResponse
+import com.example.covid.network.dataclasses.StateWiseResponse
+import com.example.covid.network.dataclasses.TravelHistoryResponse
 import com.google.gson.Gson
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async

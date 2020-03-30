@@ -1,4 +1,4 @@
-package com.example.bottomnavigation.ui
+package com.example.covid.ui
 
 import android.graphics.Bitmap
 import android.os.Bundle
@@ -7,11 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import com.example.bottomnavigation.R
-import com.example.bottomnavigation.databinding.FragmentNotificationsBinding
-import com.example.bottomnavigation.helper.UtilFunctions
-import com.example.bottomnavigation.network.Repository
-import com.example.bottomnavigation.network.dataclasses.TravelHistoryResponse
+import com.example.covid.R
+import com.example.covid.databinding.FragmentNotificationsBinding
+import com.example.covid.helper.UtilFunctions
+import com.example.covid.network.Repository
+import com.example.covid.network.dataclasses.TravelHistoryResponse
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback

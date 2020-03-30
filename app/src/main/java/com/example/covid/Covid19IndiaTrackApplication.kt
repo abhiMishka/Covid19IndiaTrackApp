@@ -1,7 +1,7 @@
-package com.example.bottomnavigation
+package com.example.covid
 
 import android.app.Application
-import com.example.bottomnavigation.network.DataManager
+import com.example.covid.network.DataManager
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -35,10 +35,11 @@ class Covid19IndiaTrackApplication : Application() {
         }
 
         fun getRetrofitClient(): Retrofit? {
-            val okHttpClient = getOkHttpClient() ?: return null
+            val okHttpClient = getOkHttpClient()
+                    ?: return null
             if (retrofit == null) {
                 retrofit = Retrofit.Builder()
-                        .baseUrl(BASE_URL) //BASE_URL
+                        .baseUrl(Covid19IndiaTrackApplication.Companion.BASE_URL) //BASE_URL
                         .client(okHttpClient)
                         .addConverterFactory(GsonConverterFactory.create())
                         .build()
@@ -47,16 +48,16 @@ class Covid19IndiaTrackApplication : Application() {
         }
 
         fun getOkHttpClient(): OkHttpClient? {
-            if (okhttpClient == null) {
-                okhttpClient = OkHttpClient.Builder().sslSocketFactory(getSSLSocketFactory())
+            if (Covid19IndiaTrackApplication.Companion.okhttpClient == null) {
+                Covid19IndiaTrackApplication.Companion.okhttpClient = OkHttpClient.Builder().sslSocketFactory(Covid19IndiaTrackApplication.Companion.getSSLSocketFactory())
                         .hostnameVerifier(object : HostnameVerifier {
                             override fun verify(p0: String?, p1: SSLSession?): Boolean {
                                 return true
                             }
                         })
-                .addInterceptor(ResponseInterceptor()).build()
+                .addInterceptor(Covid19IndiaTrackApplication.Companion.ResponseInterceptor()).build()
             }
-            return okhttpClient
+            return Covid19IndiaTrackApplication.Companion.okhttpClient
 
         }
 

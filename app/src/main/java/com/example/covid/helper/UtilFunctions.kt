@@ -1,11 +1,11 @@
-package com.example.bottomnavigation.helper
+package com.example.covid.helper
 
 import android.content.Context
 import android.net.ConnectivityManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.util.Preconditions
-import com.example.bottomnavigation.Covid19IndiaTrackApplication
+import com.example.covid.Covid19IndiaTrackApplication
 import java.text.SimpleDateFormat
 import java.util.*
 

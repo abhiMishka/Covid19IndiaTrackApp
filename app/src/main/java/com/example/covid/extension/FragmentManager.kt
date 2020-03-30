@@ -1,9 +1,9 @@
-package com.example.bottomnavigation.extension
+package com.example.covid.extension
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import com.example.bottomnavigation.R
+import com.example.covid.R
 
 
 fun FragmentManager.detach() {

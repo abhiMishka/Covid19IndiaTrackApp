@@ -1,4 +1,4 @@
-package com.example.bottomnavigation.ui
+package com.example.covid.ui
 
 import android.os.Bundle
 import android.util.Log
@@ -8,10 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.bottomnavigation.R
-import com.example.bottomnavigation.databinding.FragmentStateWiseBinding
-import com.example.bottomnavigation.network.DataManager
-import com.example.bottomnavigation.network.dataclasses.AllDataResponse
+import com.example.covid.R
+import com.example.covid.databinding.FragmentStateWiseBinding
+import com.example.covid.network.DataManager
+import com.example.covid.network.dataclasses.AllDataResponse
 import kotlinx.android.synthetic.main.fragment_state_wise.*
 
 interface ItemSelectListener {
