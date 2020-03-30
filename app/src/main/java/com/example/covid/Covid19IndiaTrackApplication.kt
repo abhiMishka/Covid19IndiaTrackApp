@@ -39,7 +39,7 @@ class Covid19IndiaTrackApplication : Application() {
                     ?: return null
             if (retrofit == null) {
                 retrofit = Retrofit.Builder()
-                        .baseUrl(Covid19IndiaTrackApplication.Companion.BASE_URL) //BASE_URL
+                        .baseUrl(BASE_URL) //BASE_URL
                         .client(okHttpClient)
                         .addConverterFactory(GsonConverterFactory.create())
                         .build()
@@ -48,16 +48,16 @@ class Covid19IndiaTrackApplication : Application() {
         }
 
         fun getOkHttpClient(): OkHttpClient? {
-            if (Covid19IndiaTrackApplication.Companion.okhttpClient == null) {
-                Covid19IndiaTrackApplication.Companion.okhttpClient = OkHttpClient.Builder().sslSocketFactory(Covid19IndiaTrackApplication.Companion.getSSLSocketFactory())
+            if (okhttpClient == null) {
+                okhttpClient = OkHttpClient.Builder().sslSocketFactory(getSSLSocketFactory())
                         .hostnameVerifier(object : HostnameVerifier {
                             override fun verify(p0: String?, p1: SSLSession?): Boolean {
                                 return true
                             }
                         })
-                .addInterceptor(Covid19IndiaTrackApplication.Companion.ResponseInterceptor()).build()
+                .addInterceptor(ResponseInterceptor()).build()
             }
-            return Covid19IndiaTrackApplication.Companion.okhttpClient
+            return okhttpClient
 
         }
 
