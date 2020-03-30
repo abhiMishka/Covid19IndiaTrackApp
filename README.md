@@ -1,4 +1,4 @@
-Writing a basic app to track COVID cases in India used COVID19INDIA apis https://github.com/covid19india/api
+Writing a basic app to track COVID-19 cases in India used COVID19INDIA apis https://github.com/covid19india/api
 
 <h1 align="center"> COVID-19 INDIA ANDROID APPLICATION </h1> <br>
 <p align="center">
