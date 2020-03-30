@@ -21,7 +21,7 @@ Writing a basic app to track COVID-19 cases in India used COVID19INDIA apis http
 
 ## Feedback
 
-Feel free to send us feedback at abhishek11006@iiitd.ac.in or [file an issue](https://github.com/gitpoint/git-point/issues/new). Feature requests are always welcome. If you wish to contribute, please drop a mail at abhishek11006@iiitd.ac.in
+Feel free to send us feedback at abhishek11006@iiitd.ac.in or [file an issue](https://github.com/abhiMishka/Covid19IndiaTrackApp/issues/new). Feature requests are always welcome. If you wish to contribute, please drop a mail at abhishek11006@iiitd.ac.in
 
 If there's anything you'd like to chat about, please feel free to join our [Gitter chat](https://gitter.im/COVID-19_INDIA_APP/community?utm_source=share-link&utm_medium=link&utm_campaign=share-link)!
 
