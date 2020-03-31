@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class MainActivity : BaseActivity() {
@@ -34,17 +35,16 @@ class MainActivity : BaseActivity() {
         }
 
         binding.swipeRefresh.setOnRefreshListener {
-
-            if(UtilFunctions.isNetworkAvailable()) {
+            if (UtilFunctions.isNetworkAvailable()) {
                 internetBarLayout.visibility = View.GONE
-                GlobalScope.launch {
-                    DataManager.syncData()
-                    binding.swipeRefresh.isRefreshing = false
-                    GlobalScope.launch(Dispatchers.Main) {
-                        notifyFragmentsDataRefreshed()
+                launch {
+                    withContext(Dispatchers.Default) {
+                        DataManager.syncData()
                     }
+                    binding.swipeRefresh.isRefreshing = false
+                    notifyFragmentsDataRefreshed()
                 }
-            }else{
+            } else {
                 internetBarLayout.visibility = View.VISIBLE
                 binding.swipeRefresh.isRefreshing = false
             }
@@ -53,14 +53,12 @@ class MainActivity : BaseActivity() {
         binding.bottomNavigation.apply {
             // This is required in Support Library 27 or lower:
             // bottomNavigation.disableShiftMode()
-
             active(navPosition.position) // Extension function
             setOnNavigationItemSelectedListener { item ->
                 navPosition = findNavigationPositionById(item.itemId)
                 switchFragment(navPosition)
             }
         }
-
         initFragment(savedInstanceState)
     }
 
@@ -72,8 +70,8 @@ class MainActivity : BaseActivity() {
         binding.swipeRefresh.setEnabled(true)
     }
 
-    fun notifyFragmentsDataRefreshed(){
-        for(fragment in supportFragmentManager.fragments){
+    fun notifyFragmentsDataRefreshed() {
+        for (fragment in supportFragmentManager.fragments) {
             (fragment as BaseFragment).onDataRefreshed()
         }
     }

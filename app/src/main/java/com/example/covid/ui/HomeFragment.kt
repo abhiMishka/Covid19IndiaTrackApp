@@ -27,6 +27,9 @@ import com.example.covid.helper.GraphMarker
 import com.example.covid.network.DataManager
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 class HomeFragment : BaseFragment() {
@@ -51,14 +54,14 @@ class HomeFragment : BaseFragment() {
         drawCharts()
     }
 
-    fun drawCharts() {
+    private fun drawCharts() {
         binding.circularGaugeProgress.visibility = View.VISIBLE
         val allDataAResponse: AllDataResponse? = DataManager.allDataAResponse
         allDataAResponse?.let {
             val time = System.currentTimeMillis()
-            setCumulativeData(allDataAResponse)
-            setUpLineChartData(allDataAResponse)
-            setupGaugeChartData(allDataAResponse,time)
+            setCumulativeData(it)
+            setUpLineChartData(it)
+            setupGaugeChartData(it,time)
         }
 
     }
@@ -156,70 +159,79 @@ class HomeFragment : BaseFragment() {
                     R.anim.fade_in_animation)
             binding.lastUpdatedTime.text = String.format("*Last Updated : %s %s",UtilFunctions.getThFormatTime(time),UtilFunctions.getTime(time))
             APIlib.getInstance().setActiveAnyChartView(binding.circularGaugeChart)
-            val stateList = allDataAResponse.statewise[0]
-            val circularGauge = AnyChart.circular()
-            circularGauge.tooltip(false)
-            val maxRangeOfChart = stateList.confirmed.toInt().times(1.2)
 
-            circularGauge.data(SingleValueDataSet(arrayOf(stateList.confirmed
-                    , stateList.active
-                    , stateList.deaths
-                    , stateList.recovered
-                    , maxRangeOfChart
-                    , maxRangeOfChart)))
 
-            circularGauge.fill("#fff")
-                    .stroke(null)
-                    .padding(0.0, 0.0, 0.0, 0.0)
-                    .margin(100.0, 100.0, 100.0, 100.0)
-            circularGauge.startAngle(0.0)
-            circularGauge.sweepAngle(270.0)
+            GlobalScope.launch(Dispatchers.IO) {
+                val stateList = allDataAResponse.statewise[0]
+                val circularGauge = AnyChart.circular()
+                circularGauge.tooltip(false)
+                val maxRangeOfChart = stateList.confirmed.toInt().times(1.2)
 
-            val xAxis = circularGauge.axis(0)
-                    .radius(100.0)
-                    .width(1.0)
-                    .fill(null as Fill?)
-            xAxis.scale()
-                    .minimum(0.0)
-                    .maximum(maxRangeOfChart)
-            xAxis.ticks("{ interval: 1 }")
-                    .minorTicks("{ interval: 1 }")
-            xAxis.labels().enabled(false)
-            xAxis.ticks().enabled(false)
-            xAxis.minorTicks().enabled(false)
+                circularGauge.data(SingleValueDataSet(arrayOf(stateList.confirmed
+                        , stateList.active
+                        , stateList.deaths
+                        , stateList.recovered
+                        , maxRangeOfChart
+                        , maxRangeOfChart)))
 
-            setCircularGauge(circularGauge
-                    , 0.0.toFloat()
-                    , "Total Cases (${stateList.confirmed})"
-                    , "${100.0}%"
-                    , 100.0.toFloat()
-                    , "#64b5f6"
-                    , 100.0.toFloat())
+                circularGauge.fill("#fff")
+                        .stroke(null)
+                        .padding(0.0, 0.0, 0.0, 0.0)
+                        .margin(100.0, 100.0, 100.0, 100.0)
+                circularGauge.startAngle(0.0)
+                circularGauge.sweepAngle(270.0)
 
-            setCircularGauge(circularGauge
-                    , 1.0.toFloat()
-                    , "Active Cases(${stateList.active})"
-                    , "${80.0}%"
-                    , 80.0.toFloat()
-                    , "#1976d2"
-                    , 101.0.toFloat())
+                val xAxis = circularGauge.axis(0)
+                        .radius(100.0)
+                        .width(1.0)
+                        .fill(null as Fill?)
+                xAxis.scale()
+                        .minimum(0.0)
+                        .maximum(maxRangeOfChart)
+                xAxis.ticks("{ interval: 1 }")
+                        .minorTicks("{ interval: 1 }")
+                xAxis.labels().enabled(false)
+                xAxis.ticks().enabled(false)
+                xAxis.minorTicks().enabled(false)
 
-            setCircularGauge(circularGauge, 2.0.toFloat()
-                    , "Total Deaths(${stateList.deaths})"
-                    , "${60.0}%"
-                    , 60.0.toFloat()
-                    , "#ef6c00"
-                    , 102.0.toFloat())
+                setCircularGauge(circularGauge
+                        , 0.0.toFloat()
+                        , "Total Cases (${stateList.confirmed})"
+                        , "${100.0}%"
+                        , 100.0.toFloat()
+                        , "#64b5f6"
+                        , 100.0.toFloat())
 
-            setCircularGauge(circularGauge, 3.0.toFloat()
-                    , "Recovered Cases(${stateList.recovered})"
-                    , "${40.0}%"
-                    , 40.0.toFloat()
-                    , "#ffd54f"
-                    , 103.0.toFloat())
-            circularGauge.margin(50.0, 50.0, 50.0, 50.0)
-            binding.circularGaugeChart.setChart(circularGauge)
-            binding.circularGaugeChart.animate()
+                setCircularGauge(circularGauge
+                        , 1.0.toFloat()
+                        , "Active Cases(${stateList.active})"
+                        , "${80.0}%"
+                        , 80.0.toFloat()
+                        , "#1976d2"
+                        , 101.0.toFloat())
+
+                setCircularGauge(circularGauge, 2.0.toFloat()
+                        , "Total Deaths(${stateList.deaths})"
+                        , "${60.0}%"
+                        , 60.0.toFloat()
+                        , "#ef6c00"
+                        , 102.0.toFloat())
+
+                setCircularGauge(circularGauge, 3.0.toFloat()
+                        , "Recovered Cases(${stateList.recovered})"
+                        , "${40.0}%"
+                        , 40.0.toFloat()
+                        , "#ffd54f"
+                        , 103.0.toFloat())
+                circularGauge.margin(50.0, 50.0, 50.0, 50.0)
+
+                GlobalScope.launch(Dispatchers.Main) {
+                    binding.circularGaugeChart.setChart(circularGauge)
+                    binding.circularGaugeChart.animate()
+                }
+            }
+
+
         } else {
             binding.circularGaugeChart.visibility = View.GONE
             binding.lastUpdatedTime.visibility = View.GONE
