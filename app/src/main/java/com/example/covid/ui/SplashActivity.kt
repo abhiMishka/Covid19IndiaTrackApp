@@ -8,8 +8,10 @@ import com.example.covid.helper.UtilFunctions
 import com.example.covid.network.DataManager
 import kotlinx.android.synthetic.main.activity_splash.*
 import kotlinx.android.synthetic.main.layout_loading.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class SplashActivity : BaseActivity() {
@@ -36,12 +38,15 @@ class SplashActivity : BaseActivity() {
     }
 
     private fun getData() {
-        GlobalScope.launch {
-            DataManager.syncData()
+        launch {
+            withContext(Dispatchers.Default) {
+                DataManager.syncData()
+            }
             rotate?.pause()
             openMainActivity()
             finish()
         }
+
     }
 
     private fun openMainActivity() {

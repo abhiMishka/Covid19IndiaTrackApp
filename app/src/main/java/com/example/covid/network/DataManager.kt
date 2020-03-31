@@ -14,12 +14,16 @@ import kotlinx.coroutines.coroutineScope
 
 object DataManager {
 
-    var stateWiseResponse: StateWiseResponse? = null
-    var allDataAResponse: AllDataResponse? = null
-    var rawDataAResponse: RawDataAResponse? = null
-    var travelHistoryResponse: TravelHistoryResponse? = null
-    val repo = Repository()
-    val gson = Gson()
+    internal var stateWiseResponse: StateWiseResponse? = null
+        get() = field
+    internal var allDataAResponse: AllDataResponse? = null
+        get() = field
+    internal var rawDataAResponse: RawDataAResponse? = null
+        get() = field
+    internal var travelHistoryResponse: TravelHistoryResponse? = null
+        get() = field
+    private val repo = Repository()
+    private val gson = Gson()
 
     private suspend fun getStateWiseData() {
         val response = repo.getStateWiseData()
